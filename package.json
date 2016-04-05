@@ -1,0 +1,26 @@
+{
+  "name": "echobot",
+  "version": "1.0.0",
+  "description": "A sample bot for getting started with Bot Framework",
+  "main": "server.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fuselabs/echobot.git"
+  },
+  "keywords": [
+    "botframework"
+  ],
+  "author": "Fuse Labs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fuselabs/echobot/issues"
+  },
+  "homepage": "https://github.com/fuselabs/echobot#readme",
+  "dependencies": {
+    "botbuilder": "^0.6.5",
+    "restify": "^4.0.4"
+  }
+}
