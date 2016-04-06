@@ -12,7 +12,7 @@ Here's how to use this bot as a starter template for your own Node.js based bot:
 ![](images/azure-create-webapp.png?raw=true)
 3. Set up continuous deployment to Azure from your Github repo. You will be asked to authorize Azure access to your GitHub repo, and then choose your branch from which to deploy.
 ![](images/azure-deployment.png?raw=true)
-4. Verify the deployment has completed by visiting the web app. [http://echobotsample.azurewebsites.net/](https://echobotsample.azurewebsites.net/).
+4. Verify the deployment has completed by visiting the web app. [http://echobotsample.azurewebsites.net/](https://echobotsample.azurewebsites.net/). It may take a minute of two for the initial fetch and build from your repo.
 ![](images/azure-browse.png?raw=true)
 5. [Register your bot with the Bot Framework](http://docs.botframework.com/connector/getstarted/#registering-your-bot-with-the-microsoft-bot-framework) using **https://echobotsample.azurewebsites.net/api/messages** as your endpoint.
 6. Enter your Bot Framework App ID and App Secret into Azure settings.
@@ -21,6 +21,7 @@ Here's how to use this bot as a starter template for your own Node.js based bot:
 
 ##Testing locally
 * git clone this repo.
+* npm install
 * node ./server.js
 * Visit [http://localhost:3978/](http://localhost:3978/) to see the home page.
 * Use **http://localhost:3978/api/messages** in the [Bot Framework Emulator](http://docs.botframework.com/connector/tools/bot-framework-emulator/#navtitle)
