@@ -8,7 +8,7 @@ var botConnectorOptions = {
 };
 
 // Create bot
-var connector = new builder.ChatConnector();
+var connector = new builder.ChatConnector(botConnectorOptions);
 var bot = new builder.UniversalBot(connector);
 
 bot.dialog('/', function (session) {
