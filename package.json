@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/fuselabs/echobot#readme",
   "dependencies": {
-    "botbuilder": "^0.6.5",
+    "botbuilder": "https://aka.ms/hackathon-builder-npm",
     "restify": "^4.0.4"
   }
 }
