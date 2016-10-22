@@ -1,5 +1,5 @@
 {
-  "name": "echobot",
+  "name": "easytee",
   "version": "1.0.0",
   "description": "A sample bot for getting started with Bot Framework",
   "main": "server.js",
@@ -20,7 +20,8 @@
   },
   "homepage": "https://github.com/fuselabs/echobot#readme",
   "dependencies": {
-    "botbuilder": "^0.6.5",
-    "restify": "^4.0.4"
+    "botbuilder": "^3.3.3",
+    "restify": "^4.1.1",
+    "dynasty": "0.2.6"
   }
 }
