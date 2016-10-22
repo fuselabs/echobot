@@ -1,15 +1,25 @@
+/*-----------------------------------------------------------------------------
+# RUN THE BOT:
+    Run the bot from the command line using "node app.js" and then type 
+    "hello" to wake the bot up.   
+-----------------------------------------------------------------------------*/
+//var builder = require('botbuilder');
+//var connector = new builder.ConsoleConnector().listen();
+//var bot = new builder.UniversalBot(connector);
 var restify = require('restify');
 var builder = require('botbuilder');
 
 // Get secrets from server environment
 var botConnectorOptions = { 
     appId: process.env.BOTFRAMEWORK_APPID, 
-    appSecret: process.env.BOTFRAMEWORK_APPSECRET 
+    appPassword: process.env.BOTFRAMEWORK_APPSECRET
 };
 
 // Create bot
-var bot = new builder.BotConnectorBot(botConnectorOptions);
-
+var connector = new builder.ChatConnector(botConnectorOptions);
+var bot = new builder.UniversalBot(connector);
+// Convert to live bot. https://docs.botframework.com/en-us/node/builder/guides/core-concepts/#navtitle
+// DynamoDB for storage?
 var credentials = {
     accessKeyId: 'AKIAJFNRZIAYXBCSYPGA',
     secretAccessKey: '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',
@@ -139,12 +149,11 @@ bot.dialog('/upload', [
 // Functions to save prompt data to t-shirt template, screenshot, send screenshot to cdn (with unique id of shirt) and serve screenshot
 // Function to send shirt data to shopify.
 // Function to retrieve shirt link from shopify to send to user as message.
-
 // Setup Restify Server
 var server = restify.createServer();
 
 // Handle Bot Framework messages
-server.post('/api/messages', bot.verifyBotFramework(), bot.listen());
+server.post('/api/messages', connector.verifyBotFramework(), connector.listen());
 
 // Serve a static web page
 server.get(/.*/, restify.serveStatic({
@@ -155,3 +164,5 @@ server.get(/.*/, restify.serveStatic({
 server.listen(process.env.port || 3978, function () {
     console.log('%s listening to %s', server.name, server.url); 
 });
+
+
