@@ -14,7 +14,7 @@ var bot = new builder.UniversalBot(connector);
 bot.dialog('/', function (session) {
     
     //respond with user's message
-    session.send("You said : " + session.message.text);
+    session.send("Hi this is crashcart! How can I help you");
 });
 
 // Setup Restify Server
