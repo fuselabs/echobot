@@ -14,7 +14,7 @@ var bot = new builder.UniversalBot(connector);
 bot.dialog('/', function (session) {
     
     //respond with user's message
-    session.send("Hi this is crashcart! How can I help you");
+    session.send("Hi this is crashcart! How can I help you? You can type out your problem (I cannot print a file) or ask for an update on an existing ticket (what's the status of IN2030?) and I will respond";
 });
 
 // Setup Restify Server
