@@ -16,7 +16,7 @@ var bot = new builder.UniversalBot(connector,function(session){
 
 var luisModel = process.env.LUIS_ENDPOINT||epLuis;
 bot.recognizer(new builder.LuisRecognizer(luisModel));
-bot.dialog('/ServiceDesk.Update',[
+bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
 		session.send(luisModel);
 		var intent = args.intent;
