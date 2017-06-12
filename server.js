@@ -15,14 +15,19 @@ var bot = new builder.UniversalBot(connector,function(session){
 });
 
 var luisModel = process.env.LUIS_ENDPOINT||epLuis;
-bot.recognizer(new builder.LuisRecognizer(luisModel));
+bot.recognizer(new builder.LuisRecognizer(epLuis));
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
-		session.send(luisModel);
+		//session.send(luisModel);
 		var intent = args.intent;
 		session.send("Identified a request for an update for an incident"+args.intent);
 	}
-]);
+]).triggerAction({
+    matches: 'ServiceDesk.Update',
+    onInterrupted: function (session) {
+        session.send('Please provide a destination');
+    })
+;
 // Setup Restify Server
 var server = restify.createServer();
 
