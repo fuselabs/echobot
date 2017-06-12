@@ -26,6 +26,12 @@ bot.dialog('ServiceDesk.Update',[
 		if(ticket){
 			session.send("Finding the status of ticket :"+ticket.entity);
 		}
+		else{
+			session.dialogData.TicketNumberProvided=false;
+			session.beginDialog('ServiceDesk.Update/GetTicketNumber');
+			session.send("Finding the status of the ticket :"+session.dialogData.TicketNumber);
+			
+		}
 		//session.send(luisModel);
 		//var intent = args.intent;
 		//session.send("Identified a request for an update for an incident"+args.intent);
@@ -33,6 +39,18 @@ bot.dialog('ServiceDesk.Update',[
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
 
+bot.dialog('ServiceDesk.Update/GetTicketNumber',[
+	function(session,args,next){
+		builder.Prompts.text(session,"I need the ticket number. It starts with a INC, SRQ or CHG and a 7 digit number");
+	},
+	function(session,args,next){
+		if(results.response){
+			session.dialogData.TicketNumber=results.response;
+			session.endDialog();
+		}
+	}
+]);
+		
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
 	//if(debug==1){session.send("In the ServiceDesk.Greet dialog");}
