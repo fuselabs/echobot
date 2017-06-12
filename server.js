@@ -22,7 +22,7 @@ bot.recognizer(new builder.LuisRecognizer(epLuis));
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
 		if(debug==1){session.send("In ServiceDesk.Update dialog");}
-		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
+		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.IncidentTicket');
 		if(ticket){
 			session.send("Finding the status of ticket :"+ticket);
 		}
@@ -35,7 +35,7 @@ bot.dialog('ServiceDesk.Update',[
 
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
-	if(debug==1){session.send("In the ServiceDesk.Greet dialog");}
+	//if(debug==1){session.send("In the ServiceDesk.Greet dialog");}
 	session.endDialog(sGreeting);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
