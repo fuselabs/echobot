@@ -22,11 +22,7 @@ bot.dialog('ServiceDesk.Update',[
 		var intent = args.intent;
 		session.send("Identified a request for an update for an incident"+args.intent);
 	}
-]).triggerAction({
-    matches: 'ServiceDesk.Update',
-    onInterrupted: function (session) {
-        session.send('Please provide a destination');
-    })
+]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
 // Setup Restify Server
 var server = restify.createServer();
