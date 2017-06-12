@@ -8,8 +8,11 @@ var botConnectorOptions = {
 };
 
 // Create bot
+var epLuis="https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/2b745525-b163-402c-aa81-b2454222274a?subscription-key=10d51623d5ea4cf0a97a3a1ea8457ebb&timezoneOffset=0&verbose=true&q=";
 var connector = new builder.ChatConnector(botConnectorOptions);
 var bot = new builder.UniversalBot(connector);
+var luisModel = process.env.LUIS_ENDPOINT||'https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/c413b2ef-382c-45bd-8ff0-f76d60e2a821?subscription-key=6d0966209c6e4f6b835ce34492f3e6d9';
+bot.recognizer(new builder.LuisRecognizer(luisModel));
 
 bot.dialog('/', function (session) {
     
@@ -17,6 +20,9 @@ bot.dialog('/', function (session) {
     session.send("Hi this is crashcart! How can I help you? You can type out your problem (I cannot print a file) or ask for an update on an existing ticket (what's the status of IN2030?) and I will respond");
 });
 
+bot.dialog('/ServiceDesk.Update',function(session){
+	session.send("Identified a request for an update for an incident");
+});
 // Setup Restify Server
 var server = restify.createServer();
 
