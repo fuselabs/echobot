@@ -35,7 +35,7 @@ bot.dialog('ServiceDesk.Update',[
 
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
-	if(debug==1){session.send("In the ServiceDesk.Greet dialog);}
+	if(debug==1){session.send("In the ServiceDesk.Greet dialog");}
 	session.endDialog(sGreeting);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
