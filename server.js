@@ -28,10 +28,11 @@ bot.dialog('ServiceDesk.Update',[
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
 
-bot.dialog('ServiceDesk.Greet',function(session,args,next){
-				session.send(sGreeting);
-			       }
-	  ).triggerAction({matches:'ServiceDesk.Greet'});
+bot.dialog('ServiceDesk.Greet',[
+function(session,args,next){
+	session.send(sGreeting);
+}
+]).triggerAction({matches:'ServiceDesk.Greet'});
 
 // Setup Restify Server
 var server = restify.createServer();
