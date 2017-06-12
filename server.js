@@ -22,7 +22,7 @@ bot.recognizer(new builder.LuisRecognizer(epLuis));
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
 		if(debug==1){session.send("In ServiceDesk.Update dialog");}
-		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.IncidentTicket');
+		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
 			session.send("Finding the status of ticket :"+ticket);
 		}
