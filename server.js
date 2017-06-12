@@ -24,7 +24,7 @@ bot.dialog('ServiceDesk.Update',[
 		if(debug==1){session.send("In ServiceDesk.Update dialog");}
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
-			session.send("Finding the status of ticket :"+str(ticket));
+			session.send("Finding the status of ticket :"+str(ticket.entity));
 		}
 		//session.send(luisModel);
 		//var intent = args.intent;
