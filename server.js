@@ -21,16 +21,20 @@ bot.recognizer(new builder.LuisRecognizer(epLuis));
 //If you have an Update request
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
+		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
+		if(ticket){
+			session.send("Finding the status of ticket :"+ticket);
+		}
 		//session.send(luisModel);
-		var intent = args.intent;
-		session.send("Identified a request for an update for an incident"+args.intent);
+		//var intent = args.intent;
+		//session.send("Identified a request for an update for an incident"+args.intent);
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
 
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
-	session.send(sGreeting);
+	session.endDialog(sGreeting);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
 
