@@ -1,6 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
-
+debug=1;
 // Get secrets from server environment
 var botConnectorOptions = { 
     appId: process.env.BOTFRAMEWORK_APPID, 
@@ -21,6 +21,7 @@ bot.recognizer(new builder.LuisRecognizer(epLuis));
 //If you have an Update request
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
+		if(debug==1){session.send("In ServiceDesk.Update dialog");}
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
 			session.send("Finding the status of ticket :"+ticket);
@@ -34,6 +35,7 @@ bot.dialog('ServiceDesk.Update',[
 
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
+	if(debug==1){session.send("In the ServiceDesk.Greet dialog);}
 	session.endDialog(sGreeting);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
