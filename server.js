@@ -9,16 +9,16 @@ var botConnectorOptions = {
 
 // Create bot
 var epLuis="https://westus.api.cognitive.microsoft.com/luis/v2.0/apps/2b745525-b163-402c-aa81-b2454222274a?subscription-key=10d51623d5ea4cf0a97a3a1ea8457ebb&timezoneOffset=0&verbose=true&q=";
+var sGreeting="Hi this is crashcart! How can I help you? You can type out your problem (I cannot print a file) or ask for an update on an existing ticket (what's the status of IN2030?) and I will respond";
 var connector = new builder.ChatConnector(botConnectorOptions);
-var bot = new builder.UniversalBot(connector);
+var bot = new builder.UniversalBot(connector,function(session){
+						session.send("Hi");
+					     }
+);
 var luisModel = process.env.LUIS_ENDPOINT||epLuis;
 bot.recognizer(new builder.LuisRecognizer(epLuis));
-bot.dialog('/', [
-		function(session,args,next){
-			session.send("Hi this is crashcart! How can I help you? You can type out your problem (I cannot print a file) or ask for an update on an existing ticket (what's the status of IN2030?) and I will respond");
-		}
-	        ]
-);
+
+//If you have an Update request
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
 		//session.send(luisModel);
@@ -27,6 +27,9 @@ bot.dialog('ServiceDesk.Update',[
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
+
+
+
 // Setup Restify Server
 var server = restify.createServer();
 
