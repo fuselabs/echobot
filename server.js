@@ -54,10 +54,12 @@ bot.dialog('ServiceDesk.Update',[
 
 bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,args,next){
-		builder.Prompts.confirm(session,"Do you have the ticket number handy?");
-		
+		builder.Prompts.confirm(session,"Do you have the ticket number handy?");		
 	},
 	function(session,results,next){
+		if(debug==1){
+			console.log(results.response+":"+typeof(results.response));
+		}
 		if(results.response=='yes'){
 		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
 		}
