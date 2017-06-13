@@ -27,7 +27,7 @@ bot.dialog('ServiceDesk.Update',[
 			session.send("Finding the status of ticket :"+ticket.entity);
 		}
 		else{
-			session.dialogData.TicketNumberProvided=false;
+			session.dialogData.TicketNumberAvailable=false;
 			session.beginDialog('ServiceDesk.Update/GetTicketNumber');
 			//session.send("Finding the status of the ticket :"+session.dialogData.TicketNumber);
 			
@@ -59,16 +59,19 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		else{	
 		   session.send("No worries. I will look up your tickets on the ticketing tool...");
 		   session.userData.Tickets=getTickets();
+		   session.dialogData.TicketNumberAvailable=true;
+
 		}
 	},
 	function(session,results){
 		console.log("The answer is:"+results.response);
 		session.send("The answer is:"+results.response);
 		if(results.response){
-			
 			session.userData.TicketNumber=results.response;
+			session.dialogData.TicketNumberAvailable=true;
+
 		}
-		//session.endDialog();		
+		session.endDialog();		
 
 	}
 		
