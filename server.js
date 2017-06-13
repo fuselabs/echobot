@@ -21,7 +21,7 @@ bot.recognizer(new builder.LuisRecognizer(luisModel));
 //If you have an Update request
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
-		if(debug==1){session.send("In ServiceDesk.Update dialog");}
+		if(debug==1){session.send("Debug:In ServiceDesk.Update dialog");}
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
 			session.send("Finding the status of ticket :"+ticket.entity);
@@ -51,7 +51,9 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,args,next){
 		builder.Prompts.confirm("Do you have the ticket number handy?");
 		
-	},
+	}
+	,
+	/*
 	function(session,results,next){
 		if(results.response){
 		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
@@ -60,9 +62,12 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		   session.send("No worries. I will look up your tickets on the ticketing tool...");
 		   session.userData.Tickets=getTickets();
 		}
-	},
+	},*/
 	function(session,results){
+		console.log("The answer is:"+results.response);
+		session.send("The answer is:"+results.response);
 		if(results.response){
+			
 			session.userData.TicketNumber=results.response;
 		}
 		//session.endDialog();		
@@ -73,7 +78,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
-	//if(debug==1){session.send("In the ServiceDesk.Greet dialog");}
+	if(debug==1){session.send("Debug:In the ServiceDesk.Greet dialog");}
 	session.endDialog(sGreeting);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
