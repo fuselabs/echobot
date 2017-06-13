@@ -78,13 +78,30 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	}
 		
 ]);
-		
+
+bot.dialog('/proactive',function(session,args,next){
+	session.send("Ola!");
+	session.endDialog();
+}
+);
+
+bot.dialog('/',function(session,args,next){
+	var endUser=session.message.address;
+}
+);
+
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
 	if(debug==1){session.send("Debug:In the ServiceDesk.Greet dialog");}
-	session.endDialog(sGreeting);
+	//session.endDialog(sGreeting);
+	session.send("OK. Calling the service desk...");
+	startProactiveDialog(endUser);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
+
+function startProactiveDialog(address){
+	bot.beginDialog(address,'*:/proactive');
+}
 
 function getTickets(session){
 	if(debug==1){
@@ -105,6 +122,12 @@ server.get(/.*/, restify.serveStatic({
 	'directory': '.',
 	'default': 'index.html'
 }));
+
+server.get('/api/CustomWebApi', function (req, res, next) {
+  startProactiveDialog(endUser);
+  res.send('triggered');
+  next();
+});
 
 server.listen(process.env.port || 3978, function () {
     console.log('%s listening to %s', server.name, server.url); 
