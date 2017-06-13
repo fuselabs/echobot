@@ -60,7 +60,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		if(debug==1){
 			console.log(results.response+":"+typeof(results.response));
 		}
-		if(results.response=='yes'){
+		if(results.response==true){
 		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
 		}
 		else{	
