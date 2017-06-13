@@ -41,7 +41,7 @@ bot.dialog('ServiceDesk.Update',[
 
 	},
 	function(session,results){
-		if(session.userData.TicketNumber){
+		if(session.userData.TicketNumber!=""){
 			session.send("Finding the status of the ticket :"+session.userData.TicketNumber);
 		}
 		else{
@@ -57,27 +57,22 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		
 	},
 	function(session,results,next){
-		if(results.response){
+		if(results.response=='yes'){
 		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
 		}
 		else{	
+		   session.userData.Tickets=getTickets(session);
 		   next();
 		}
 	},
 	function(session,results){
-		if(results.response){
 			if(debug==1){
 				console.log("The ticket number is:"+results.response);
 				session.send("The ticket number is:"+results.response);
 			}
 			session.userData.TicketNumber=results.response;
 			//session.dialogData.TicketNumberAvailable=true;
-		}
-		else{
-			session.userData.Tickets=getTickets(session);
-		}
-		session.endDialogWithResult({response:session.userData});		
-
+			session.endDialogWithResult({response:session.userData});		
 	}
 		
 ]);
