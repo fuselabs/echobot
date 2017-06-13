@@ -49,7 +49,7 @@ bot.dialog('ServiceDesk.Update',[
 
 bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,args,next){
-		builder.Prompts.confirm("Do you have the ticket number handy?");
+		builder.Prompts.confirm(session,"Do you have the ticket number handy?");
 		
 	}
 	,
