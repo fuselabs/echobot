@@ -41,11 +41,12 @@ bot.dialog('ServiceDesk.Update',[
 
 	},
 	function(session,results){
-		if(session.userData.TicketNumber!=""){
-			session.send("Finding the status of the ticket :"+session.userData.TicketNumber);
+		if(typeof session.userData.TicketNumber==="undefined"){
+			session.send("Here are your tickets and ticket status"+session.userData.Tickets);
 		}
 		else{
-			session.send("Here are your tickets and ticket status"+session.userData.Tickets);
+			session.send("Finding the status of the ticket :"+session.userData.TicketNumber);
+		
 		}
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
