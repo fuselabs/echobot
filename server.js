@@ -72,7 +72,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		else{
 			session.userData.Tickets=getTickets(session);
 		}
-		session.endDialogWithResults({response:session.userData});		
+		session.endDialogWithResult({response:session.userData});		
 
 	}
 		
