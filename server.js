@@ -27,14 +27,18 @@ bot.dialog('ServiceDesk.Update',[
 			session.send("Finding the status of ticket :"+ticket.entity);
 		}
 		else{
-			session.dialogData.TicketNumberAvailable=false;
-			session.beginDialog('ServiceDesk.Update/GetTicketNumber');
-			//session.send("Finding the status of the ticket :"+session.dialogData.TicketNumber);
-			
+			next();
+						
 		}
 		//session.send(luisModel);
 		//var intent = args.intent;
 		//session.send("Identified a request for an update for an incident"+args.intent);
+	},
+	function(session,results,next){
+		session.dialogData.TicketNumberAvailable=false;
+		session.beginDialog('ServiceDesk.Update/GetTicketNumber');
+		//session.send("Finding the status of the ticket :"+session.dialogData.TicketNumber);
+
 	},
 	function(session,results){
 		if(session.userData.TicketNumber){
