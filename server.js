@@ -57,21 +57,22 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
 		}
 		else{	
-		   session.send("No worries. I will look up your tickets on the ticketing tool...");
-		   session.userData.Tickets=getTickets();
-		   session.dialogData.TicketNumberAvailable=true;
-		   session.endDialog();
+		   next();
 		}
 	},
 	function(session,results){
-		console.log("The answer is:"+results.response);
-		session.send("The answer is:"+results.response);
 		if(results.response){
+			if(debug==1){
+				console.log("The ticket number is:"+results.response);
+				session.send("The ticket number is:"+results.response);
+			}
 			session.userData.TicketNumber=results.response;
-			session.dialogData.TicketNumberAvailable=true;
-
+			//session.dialogData.TicketNumberAvailable=true;
 		}
-		session.endDialog();		
+		else{
+			session.userData.Tickets=getTickets();
+		}
+		session.endDialogWithResults({response:session.userData});		
 
 	}
 		
@@ -85,6 +86,10 @@ function(session,args,next){
 ]).triggerAction({matches:'ServiceDesk.Greet'});
 
 function getTickets(){
+	if(debug==1){
+		console.log("In the getTickets function");
+		session.send("In the getTickets function");
+	}
 	//mock getTickets function
 	return [1,2,3];
 }
