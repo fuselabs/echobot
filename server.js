@@ -51,9 +51,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,args,next){
 		builder.Prompts.confirm(session,"Do you have the ticket number handy?");
 		
-	}
-	,
-	/*
+	},
 	function(session,results,next){
 		if(results.response){
 		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
@@ -62,7 +60,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		   session.send("No worries. I will look up your tickets on the ticketing tool...");
 		   session.userData.Tickets=getTickets();
 		}
-	},*/
+	},
 	function(session,results){
 		console.log("The answer is:"+results.response);
 		session.send("The answer is:"+results.response);
