@@ -37,20 +37,38 @@ bot.dialog('ServiceDesk.Update',[
 		//session.send("Identified a request for an update for an incident"+args.intent);
 	},
 	function(session,results){
-		session.send("Finding the status of the ticket :"+session.userData.TicketNumber);
+		if(session.userData.TicketNumber){
+			session.send("Finding the status of the ticket :"+session.userData.TicketNumber);
+		}
+		else{
+			session.send("Here are your tickets and ticket status"+session.userData.Tickets;
+		}
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
 
 bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,args,next){
-		builder.Prompts.text(session,"I need the ticket number. It starts with a INC, SRQ or CHG and a 7 digit number");
+		builder.Prompts.confirm("Do you have the ticket number handy?");
+		
+	},
+	function(session,results,next){
+		if(results.response){
+		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
+		}
+		else{	
+		   session.send("No worries. I will look up your tickets on the ticketing tool...");
+		   session.userData.Tickets=getTickets();
+		}
 	},
 	function(session,results){
-		session.userData.TicketNumber=results.response;
-		session.endDialog();
-		
+		if(results.response){
+			session.userData.TicketNumber=results.response;
+		}
+		//session.endDialog();		
+
 	}
+		
 ]);
 		
 bot.dialog('ServiceDesk.Greet',[
@@ -60,6 +78,10 @@ function(session,args,next){
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
 
+function getTickets(){
+	//mock getTickets function
+	return [1,2,3];
+}
 // Setup Restify Server
 var server = restify.createServer();
 
