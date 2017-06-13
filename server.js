@@ -60,7 +60,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		   session.send("No worries. I will look up your tickets on the ticketing tool...");
 		   session.userData.Tickets=getTickets();
 		   session.dialogData.TicketNumberAvailable=true;
-
+		   session.endDialog();
 		}
 	},
 	function(session,results){
