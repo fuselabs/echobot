@@ -41,7 +41,7 @@ bot.dialog('ServiceDesk.Update',[
 			session.send("Finding the status of the ticket :"+session.userData.TicketNumber);
 		}
 		else{
-			session.send("Here are your tickets and ticket status"+session.userData.Tickets;
+			session.send("Here are your tickets and ticket status"+session.userData.Tickets);
 		}
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
