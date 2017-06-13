@@ -70,7 +70,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 			//session.dialogData.TicketNumberAvailable=true;
 		}
 		else{
-			session.userData.Tickets=getTickets();
+			session.userData.Tickets=getTickets(session);
 		}
 		session.endDialogWithResults({response:session.userData});		
 
@@ -85,7 +85,7 @@ function(session,args,next){
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
 
-function getTickets(){
+function getTickets(session){
 	if(debug==1){
 		console.log("In the getTickets function");
 		session.send("In the getTickets function");
