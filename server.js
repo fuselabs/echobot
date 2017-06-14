@@ -86,11 +86,7 @@ bot.dialog('/proactive',function(session,args,next){
 );
 */
 
-bot.dialog('/',function(session,args,next){
-	var endUser=session.message.address;
-	session.send(endUser);
-}
-);
+
 
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
@@ -110,6 +106,7 @@ function startProactiveDialog(address){
 function getTickets(session){
 	if(debug==1){
 		console.log("In the getTickets function");
+		console.log(session.message.address);
 		session.send("In the getTickets function");
 	}
 	//mock getTickets function
