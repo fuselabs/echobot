@@ -120,7 +120,7 @@ function getTickets(session){
 		}
 	);
 	//mock getTickets function
-	return [1,2,3];
+	//return [1,2,3];
 }
 // Setup Restify Server
 var server = restify.createServer();
