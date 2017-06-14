@@ -42,6 +42,7 @@ bot.dialog('ServiceDesk.Update',[
 
 	},
 	function(session,results){
+		console.log("TicketNumber:"+typeof(session.userData.TicketNumber)+":tickets:"+session.userData.Tickets);
 		if(typeof session.userData.TicketNumber==="undefined"){
 			session.send("Here are your tickets and ticket status"+session.userData.Tickets);
 		}
