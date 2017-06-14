@@ -64,8 +64,13 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		if(results.response==true){
 		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
 		}
-		else{	
+		else{
+		   session.send("Getting your tickets off the service portal");
+		   session.sendTyping();
 		   session.userData.Tickets=getTickets(session);
+		   setTimeout(5000,function(){
+			   session.send("Got them");
+		   });
 		   next();
 		}
 	},
