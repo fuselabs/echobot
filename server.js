@@ -76,7 +76,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	},
 	function(session,results){
 			if(debug==1){
-				console.log("The ticket number is:"+results.response+":"+session.userData);
+				console.log("The ticket number is:"+results.response+":"+session.userData.Tickets);
 				session.send("The ticket number is:"+results.response);
 			}
 			session.userData.TicketNumber=results.response;
