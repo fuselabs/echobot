@@ -68,9 +68,6 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		   session.send("Getting your tickets off the service portal");
 		   session.sendTyping();
 		   session.userData.Tickets=getTickets(session);
-		   setTimeout(5000,function(){
-			   session.send("Got them");
-		   });
 		   next();
 		}
 	},
@@ -118,14 +115,16 @@ function getTickets(session){
 	}
 	var uName=session.message.address.user.name;
 	var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
+	var tickets;
 	Snow.getRecords(
 		{table:'incident',query:{'caller_id.name':uName}},
 		(err,data)=>{
- 			return data;
+ 			tickets=data;
 		}
 	);
 	//mock getTickets function
 	//return [1,2,3];
+	return tickets;
 }
 // Setup Restify Server
 var server = restify.createServer();
