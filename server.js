@@ -1,5 +1,7 @@
 var restify = require('restify');
 var builder = require('botbuilder');
+var serviceNow = require("service-now");
+
 debug=1;
 // Get secrets from server environment
 var botConnectorOptions = { 
@@ -109,6 +111,14 @@ function getTickets(session){
 		console.log(session.message.address);
 		session.send("In the getTickets function");
 	}
+	var uName=session.message.address.user.name;
+	var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
+	Snow.getRecords(
+		{table:'incident',query:{'caller_id.name':uName}},
+		(err,data)=>{
+ 			return data;
+		}
+	);
 	//mock getTickets function
 	return [1,2,3];
 }
