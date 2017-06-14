@@ -70,7 +70,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		   session.sendTyping();
 		   session.userData.Tickets=getTickets(session);
 		   if(debug==1){console.log("Return value:"+session.userData.Tickets);}
-		   setTimeout(function(){},5000);
+		   //setTimeout(function(){},2000);
 		   next();
 		}
 	},
@@ -126,8 +126,8 @@ function getTickets(session){
 			console.log("The returned data is:"+data+":"+session.userData.Tickets);
 		}
 	);
-	return session.userData.Tickets;
 	setTimeout(function(){},5000);
+	return session.userData.Tickets;
 	//mock getTickets function
 	//return [1,2,3];
 	//return tickets;
