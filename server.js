@@ -127,7 +127,7 @@ function getTickets(session){
 		}
 	);
 	return session.userData.Tickets;
-	setTimeout(function(){},2000);
+	setTimeout(function(){},5000);
 	//mock getTickets function
 	//return [1,2,3];
 	//return tickets;
