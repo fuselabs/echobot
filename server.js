@@ -112,7 +112,7 @@ function getTickets(session){
 	if(debug==1){
 		console.log("In the getTickets function");
 		console.log(session.message.address);
-		session.send("In the getTickets function");
+		//session.send("In the getTickets function");
 	}
 	var uName=session.message.address.user.name;
 	var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
@@ -124,6 +124,7 @@ function getTickets(session){
 			console.log("The returned data is:"+data+":"+session.userData.Tickets);
 		}
 	);
+	setTimeout(function(){},2000);
 	//mock getTickets function
 	//return [1,2,3];
 	//return tickets;
