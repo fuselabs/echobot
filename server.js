@@ -67,7 +67,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		else{
 		   session.send("Getting your tickets off the service portal");
 		   session.sendTyping();
-		   getTickets(session);
+		   session.userData.Tickets=getTickets(session);
 		   setTimeout(function(){},2000);
 		   next();
 		}
@@ -124,6 +124,7 @@ function getTickets(session){
 			console.log("The returned data is:"+data+":"+session.userData.Tickets);
 		}
 	);
+	return session.userData.Tickets;
 	setTimeout(function(){},2000);
 	//mock getTickets function
 	//return [1,2,3];
