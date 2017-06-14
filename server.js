@@ -42,12 +42,12 @@ bot.dialog('ServiceDesk.Update',[
 
 	},
 	function(session,results){
-		console.log("TicketNumber:"+typeof(session.userData.TicketNumber)+":tickets:"+session.userData.Tickets);
-		if(typeof session.userData.TicketNumber==="undefined"){
-			session.send("Here are your tickets and ticket status"+session.userData.Tickets);
+		console.log("TicketNumber:"+typeof(results.TicketNumber)+":tickets:"+results.Tickets);
+		if(typeof results.TicketNumber==="undefined"){
+			session.send("Here are your tickets and ticket status"+results.Tickets);
 		}
 		else{
-			session.send("Finding the status of the ticket :"+session.userData.TicketNumber);
+			session.send("Finding the status of the ticket :"+results.TicketNumber);
 		
 		}
 	}
