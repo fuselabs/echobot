@@ -67,7 +67,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		else{
 		   session.send("Getting your tickets off the service portal");
 		   session.sendTyping();
-		   session.userData.Tickets=getTickets(session);
+		   getTickets(session);
 		   next();
 		}
 	},
@@ -119,7 +119,7 @@ function getTickets(session){
 	Snow.getRecords(
 		{table:'incident',query:{'caller_id.name':uName}},
 		(err,data)=>{
- 			tickets=data;
+ 			session.userData.Tickets=data;
 		}
 	);
 	//mock getTickets function
