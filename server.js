@@ -68,6 +68,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		   session.send("Getting your tickets off the service portal");
 		   session.sendTyping();
 		   getTickets(session);
+		   setTimeout(function(){},2000);
 		   next();
 		}
 	},
@@ -117,10 +118,10 @@ function getTickets(session){
 	var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
 	var tickets;
 	Snow.getRecords(
-		{table:'incident',query:{'caller_id.name':uName}},
+		{table:'incident',query:{'caller_id.user_name':'Abel.Tuter'}},
 		(err,data)=>{
  			session.userData.Tickets=data;
-			console.log(session.userData.Tickets);
+			console.log("The returned data is:"+data+":"+session.userData.Tickets);
 		}
 	);
 	//mock getTickets function
