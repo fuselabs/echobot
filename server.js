@@ -120,11 +120,12 @@ function getTickets(session){
 		{table:'incident',query:{'caller_id.name':uName}},
 		(err,data)=>{
  			session.userData.Tickets=data;
+			console.log(session.userData.Tickets);
 		}
 	);
 	//mock getTickets function
 	//return [1,2,3];
-	return tickets;
+	//return tickets;
 }
 // Setup Restify Server
 var server = restify.createServer();
