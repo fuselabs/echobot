@@ -70,7 +70,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		   session.sendTyping();
 		   session.userData.Tickets=getTickets(session);
 		   if(debug==1){console.log("Return value:"+session.userData.Tickets);}
-		   setTimeout(function(){},2000);
+		   setTimeout(function(){},5000);
 		   next();
 		}
 	},
