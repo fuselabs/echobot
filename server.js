@@ -122,12 +122,12 @@ function getTickets(session){
 	Snow.getRecords(
 		{table:'incident',query:{'caller_id.user_name':'Abel.Tuter'}},
 		(err,data)=>{
- 			session.userData.Tickets=data;
-			console.log("The returned data is:"+data+":"+session.userData.Tickets);
+ 			tickets=data;
+			console.log("The returned data is:"+data+":"+tickets);
 		}
 	);
 	setTimeout(function(){},5000);
-	//return session.userData.Tickets;
+	return tickets;
 	//mock getTickets function
 	//return [1,2,3];
 	//return tickets;
