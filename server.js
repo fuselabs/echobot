@@ -84,12 +84,14 @@ bot.dialog('/proactive',function(session,args,next){
 	session.endDialog();
 }
 );
+*/
 
 bot.dialog('/',function(session,args,next){
 	var endUser=session.message.address;
+	session.send(endUser);
 }
 );
-*/
+
 bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
 	if(debug==1){session.send("Debug:In the ServiceDesk.Greet dialog");}
