@@ -23,6 +23,6 @@
     "botbuilder": "^3.6.0",
     "restify": "^4.3.0",
     "service-now": "^1.0.1",
-    "util":"^0.10.3"
+    "util":"",
   }
 }
