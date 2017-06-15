@@ -50,31 +50,32 @@ bot.dialog('ServiceDesk.Update',[
 		//logThis(results.response.Tickets);
 		if(typeof results.response.TicketNumber==="undefined"){
 			var msg=new builder.Message(session);
-			msg.attachmentLayout(builder.AttachmentLayout.carousel);
+			//msg.attachmentLayout(builder.AttachmentLayout.carousel);
 			for(var i=0;i<results.response.Tickets.length;i++){
 				//logThis(aticket);
 				//var ticket=aticket[0];
 				var ticket=results.response.Tickets[i];
+				session.send(ticket.number);
 				msg.addAttachment({
-					contentType: "application/vnd.microsoft.card.adaptive",
-					content: {
-            			type: "AdaptiveCard",
-						body:[
+					"contentType": "application/vnd.microsoft.card.adaptive",
+					"content": {
+            					"type": "AdaptiveCard",
+						"body":[
 							{"type":"TextBlock",
 							"text": ticket.number+" "+ticket.short_description,
                         				"size": "large",
                         				"weight": "bolder"
-                    		},
-                    		{"type": "TextBlock",
+                    					},
+                    					{"type": "TextBlock",
 							 "size":"large",
 							 "weight":"bolder",
                         				 "text": ticket.state
-                    		},
+                    					},
 							{"type": "TextBlock",
                         				 "text": ticket.category
-                    		},
+                    					},
 						],
-						actions:[
+						"actions":[
 							{
 							"type":"Action.Http",
 							"method":"GET",
@@ -84,7 +85,6 @@ bot.dialog('ServiceDesk.Update',[
 						]
 					}
 				});
-				//session.send(ticket.number);
 			}
 			session.send(msg).endDialog();
 		}
