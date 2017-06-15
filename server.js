@@ -2,9 +2,14 @@ var restify = require('restify');
 var builder = require('botbuilder');
 var serviceNow = require("service-now");
 const util=require('util');
-const debuglog=util.debuglog('CRASHCART:');
+//const debuglog=util.debuglog('CRASHCART_DEBUG:');
+const debug=1;
 
-debug=1;
+function logThis(results){
+	if(debug==1){
+	console.log(util.inspect(results));
+	}
+}
 // Get secrets from server environment
 var botConnectorOptions = { 
     appId: process.env.BOTFRAMEWORK_APPID, 
@@ -24,7 +29,7 @@ bot.recognizer(new builder.LuisRecognizer(luisModel));
 //If you have an Update request
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
-		if(debug==1){session.send("Debug:In ServiceDesk.Update dialog");}
+		logThis("In ServiceDesk.Update dialog");
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
 			session.send("Finding the status of ticket :"+ticket.entity);
@@ -33,18 +38,13 @@ bot.dialog('ServiceDesk.Update',[
 			next();
 						
 		}
-		//session.send(luisModel);
-		//var intent = args.intent;
-		//session.send("Identified a request for an update for an incident"+args.intent);
 	},
 	function(session,results,next){
 		session.dialogData.TicketNumberAvailable=false;
 		session.beginDialog('ServiceDesk.Update/GetTicketNumber');
-		//session.send("Finding the status of the ticket :"+session.dialogData.TicketNumber);
-
 	},
 	function(session,results){
-		console.log(util.inspect(results));
+		logThis(results);
 		console.log("TicketNumber:"+typeof(results.response.TicketNumber)+":tickets:"+results.response.Tickets);
 		if(typeof results.response.TicketNumber==="undefined"){
 			session.send("Here are your tickets and ticket status"+results.response.Tickets);
@@ -59,32 +59,23 @@ bot.dialog('ServiceDesk.Update',[
 
 bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,args,next){
-		session.send("In the ServiceDesk.Update/GetTicketNumbers dialog");
-		builder.Prompts.confirm(session,"Do you have the ticket number handy?");		
+		logThis("In the ServiceDesk.Update/GetTicketNumber dialog");
+		builder.Prompts.confirm(session,"Do you have the ticket number handy? It should start with a INC, SRQ or CHG and be followed by a 7 digit number");		
 	},
 	function(session,results,next){
-		if(debug==1){
-			console.log(results.response+":"+typeof(results.response));
-		}
+		logThis(results);
 		if(results.response==true){
 		   session.dialogData.ticketNumberAvailable=true;
-		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
+		   builder.Prompts.text(session,"Great. Can you enter the ticket number?");
 		}
 		else{
 		   session.dialogData.ticketNumberAvailable=false;
-		   session.send("Getting your tickets off the service portal");
-		   session.sendTyping();
+		   session.send("No Worries. I am getting your tickets off the service portal");
 		   session.beginDialog('ServiceDesk.Update/GetTickets');
-		   //getTickets(session);
-		   /*
-		   if(debug==1){console.log("Return value:"+session.userData.Tickets);}
-		   setTimeout(function(){},5000);
-		   */
-		   //next();
 		}
 	},
 	function(session,results){
-		console.log(util.inspect(results));
+		logThis(results);
 		if(session.dialogData.ticketNumberAvailable==true){	
 			session.userData.TicketNumber=results.response;
 			//session.dialogData.TicketNumberAvailable=true;
@@ -98,30 +89,10 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	}
 		
 ]);
-/*
-bot.dialog('/proactive',function(session,args,next){
-	session.send("Ola!");
-	session.endDialog();
-}
-);
-*/
-
-
-
-bot.dialog('ServiceDesk.Greet',[
-function(session,args,next){
-	if(debug==1){session.send("Debug:In the ServiceDesk.Greet dialog");}
-	session.endDialog(sGreeting);
-	//session.send("OK. Calling the service desk...");
-	//startProactiveDialog(endUser);
-}
-]).triggerAction({matches:'ServiceDesk.Greet'});
 
 bot.dialog('ServiceDesk.Update/GetTickets',[
 	function(session,args,next){
-		if(debug==1){
-		console.log("In the getTickets dialog");
-		session.send("Debug:In the ServiceDesk.Update/GetTickets dialog");
+		logThis("In the ServiceDesk.Update/GetTickets dialog");
 		//console.log(session.message.address);
 		//session.send("In the getTickets function");
 	}
@@ -138,35 +109,17 @@ bot.dialog('ServiceDesk.Update/GetTickets',[
 	}
 
 ]);
-/*
-function startProactiveDialog(address){
-	bot.beginDialog(address,'*:/proactive');
-}
-*/
 
 
-function getTickets(session){
-	if(debug==1){
-		console.log("In the getTickets function");
-		console.log(session.message.address);
-		//session.send("In the getTickets function");
-	}
-	var uName=session.message.address.user.name;
-	var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
-	var tickets;
-	Snow.getRecords(
-		{table:'incident',query:{'caller_id.user_name':'Abel.Tuter'}},
-		(err,data)=>{
- 			tickets=data;
-			console.log("The returned data is:"+data+":"+tickets);
-		}
-	);
-	setTimeout(function(){},5000);
-	return tickets;
-	//mock getTickets function
-	//return [1,2,3];
-	//return tickets;
+bot.dialog('ServiceDesk.Greet',[
+function(session,args,next){
+	logThis("Debug:In the ServiceDesk.Greet dialog");
+	session.endDialog(sGreeting);
+	//session.send("OK. Calling the service desk...");
+	//startProactiveDialog(endUser);
 }
+]).triggerAction({matches:'ServiceDesk.Greet'});
+
 // Setup Restify Server
 var server = restify.createServer();
 
@@ -178,12 +131,6 @@ server.get(/.*/, restify.serveStatic({
 	'directory': '.',
 	'default': 'index.html'
 }));
-
-server.get('/api/CustomWebApi', function (req, res, next) {
-  //startProactiveDialog(endUser);
-  res.send('triggered');
-  next();
-});
 
 server.listen(process.env.port || 3978, function () {
     console.log('%s listening to %s', server.name, server.url); 
