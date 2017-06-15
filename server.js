@@ -51,23 +51,24 @@ bot.dialog('ServiceDesk.Update',[
 			var msg=new builder.Message(session);
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
 			for(ticket in results.response.Tickets){
+				logthis(ticket)
 				msg.addAttachment({
 					contentType: "application/vnd.microsoft.card.adaptive",
 					content: {
             					type: "AdaptiveCard",
 						body:[
 							{"type":"TextBlock",
-							"text": ticket.number+" "+ticket[0].short_description,
+							"text": ticket.number+" "+ticket.short_description,
                         				"size": "large",
                         				"weight": "bolder"
                     					},
                     					{"type": "TextBlock",
 							 "size":"large",
 							 "weight":"bolder",
-                        				 "text": ticket[0].state
+                        				 "text": ticket.state
                     					},
 							{"type": "TextBlock",
-                        				 "text": ticket[0].category
+                        				 "text": ticket.category
                     					},
 						],
 						"actions":[
