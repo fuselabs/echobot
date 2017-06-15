@@ -51,7 +51,7 @@ bot.dialog('ServiceDesk.Update',[
 			var msg=new builder.Message(session);
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
 			for(ticket in results.response.Tickets){
-				logthis(ticket)
+				logThis(ticket)
 				msg.addAttachment({
 					contentType: "application/vnd.microsoft.card.adaptive",
 					content: {
