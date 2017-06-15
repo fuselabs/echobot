@@ -102,7 +102,7 @@ bot.dialog('ServiceDesk.Update/GetTickets',[
 		var tickets;
 		logThis(session.message.address);
 		Snow.getRecords(
-		{table:'incident',query:{'caller_id.user_name':'Abel.Tuter'}},
+		{table:'incident',query:{'caller_id.user_name':session.message.address.user.name}},
 			(err,data)=>{
  				tickets=data;
 				session.endDialogWithResult({response:tickets});
