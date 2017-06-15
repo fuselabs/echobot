@@ -53,6 +53,7 @@ bot.dialog('ServiceDesk.Update',[
 			for(var aticket in results.response.Tickets){
 				logThis(aticket);
 				var ticket=aticket[0];
+				/*
 				msg.addAttachment({
 					contentType: "application/vnd.microsoft.card.adaptive",
 					content: {
@@ -82,6 +83,7 @@ bot.dialog('ServiceDesk.Update',[
 						]
 					}
 				});
+				*/
 			}
 			session.send(msg);
 		}
