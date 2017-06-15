@@ -22,7 +22,6 @@
   "dependencies": {
     "botbuilder": "^3.6.0",
     "restify": "^4.3.0",
-    "service-now": "^1.0.1",
-    "util":"",
+    "service-now": "^1.0.1"
   }
 }
