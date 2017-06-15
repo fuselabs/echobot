@@ -90,7 +90,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 			//session.dialogData.TicketNumberAvailable=true;
 		}
 		else{
-			session.userData.Tickets=results.response.tickets;
+			session.userData.Tickets=results.response;
 			
 		}
 		session.endDialogWithResult({response:session.userData});
