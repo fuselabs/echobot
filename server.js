@@ -54,22 +54,22 @@ bot.dialog('ServiceDesk.Update',[
 				logThis(aticket);
 				var ticket=aticket[0];
 				msg.addAttachment({
-					contentType: "application/vnd.microsoft.card.adaptive",
-					content: {
-            					type: "AdaptiveCard",
-						body:[
+					"contentType": "application/vnd.microsoft.card.adaptive",
+					"content": {
+            					"type": "AdaptiveCard",
+						"body":[
 							{"type":"TextBlock",
-							"text": ticket.number+" "+ticket.short_description,
+							"text": "Bum",
                         				"size": "large",
                         				"weight": "bolder"
                     					},
                     					{"type": "TextBlock",
 							 "size":"large",
 							 "weight":"bolder",
-                        				 "text": ticket.state
+                        				 "text": "Boo"
                     					},
 							{"type": "TextBlock",
-                        				 "text": ticket.category
+                        				 "text": "Bah"
                     					},
 						],
 						"actions":[
