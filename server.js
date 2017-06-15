@@ -84,6 +84,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		}
 	},
 	function(session,results){
+		console.log(util.inspect(results));
 		if(session.dialogData.ticketNumberAvailable==true){	
 			session.userData.TicketNumber=results.response;
 			//session.dialogData.TicketNumberAvailable=true;
