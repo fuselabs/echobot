@@ -1,6 +1,7 @@
 var restify = require('restify');
 var builder = require('botbuilder');
 var serviceNow = require("service-now");
+const util=require('util');
 
 debug=1;
 // Get secrets from server environment
@@ -42,6 +43,7 @@ bot.dialog('ServiceDesk.Update',[
 
 	},
 	function(session,results){
+		util.inspect(results);
 		console.log("TicketNumber:"+typeof(results.response.TicketNumber)+":tickets:"+results.response.Tickets);
 		if(typeof results.response.TicketNumber==="undefined"){
 			session.send("Here are your tickets and ticket status"+results.response.Tickets);
@@ -80,11 +82,11 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		}
 	},
 	function(session,results){
-		if(session.dialogData.ticketNumberAvailable==true){
-			if(debug==1){
-				console.log("The ticket number is:"+results.response+":"+session.userData.Tickets);
+		if(debug==1){
+				console.log("The ticket number is:"+results.response+":"+);
 				session.send("The ticket number is:"+results.response);
-			}
+		}
+		if(session.dialogData.ticketNumberAvailable==true){	
 			session.userData.TicketNumber=results.response;
 			//session.dialogData.TicketNumberAvailable=true;
 		}
@@ -119,8 +121,8 @@ function(session,args,next){
 bot.dialog('ServiceDesk.Update/GetTickets',[
 	function(session,args,next){
 		if(debug==1){
-		console.log("In the getTickets function");
-		console.log(session.message.address);
+		console.log("In the getTickets dialog");
+		//console.log(session.message.address);
 		//session.send("In the getTickets function");
 	}
 	var uName=session.message.address.user.name;
