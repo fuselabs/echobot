@@ -50,24 +50,24 @@ bot.dialog('ServiceDesk.Update',[
 		if(typeof results.response.TicketNumber==="undefined"){
 			var msg=new builder.Message(session);
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
-			for(ticket in results.response.Tickets[0]){
+			for(ticket in results.response.Tickets){
 				msg.addAttachment({
 					contentType: "application/vnd.microsoft.card.adaptive",
 					content: {
             					type: "AdaptiveCard",
 						body:[
 							{"type":"TextBlock",
-							"text": ticket.number+" "+ticket.short_description,
+							"text": ticket.number+" "+ticket[0].short_description,
                         				"size": "large",
                         				"weight": "bolder"
                     					},
                     					{"type": "TextBlock",
 							 "size":"large",
 							 "weight":"bolder",
-                        				 "text": ticket.state
+                        				 "text": ticket[0].state
                     					},
 							{"type": "TextBlock",
-                        				 "text": ticket.category
+                        				 "text": ticket[0].category
                     					},
 						],
 						"actions":[
@@ -135,8 +135,8 @@ bot.dialog('ServiceDesk.Update/GetTickets',[
 		logThis(session.message.address);
 		var arName=session.message.address.user.name.split(' ');
 		Snow.getRecords(
-			{table:'incident',query:{'caller_id.first_name':arName[0],
-					 'caller_id.last_name':arName[1]
+			{table:'incident',query:{'caller_id.first_name':'Abel',
+					 'caller_id.last_name':'Tuter'
 					}
 			},
 			(err,data)=>{
