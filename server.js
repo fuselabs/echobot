@@ -101,8 +101,12 @@ bot.dialog('ServiceDesk.Update/GetTickets',[
 		var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
 		var tickets;
 		logThis(session.message.address);
+		var arName=session.message.address.user.name.split(' ');
 		Snow.getRecords(
-		{table:'incident',query:{'caller_id.user_name':session.message.address.user.name}},
+			{table:'incident',query:{'caller_id.first_name':arName[0],
+					 'caller_id.last_name':arName[1]
+					}
+			},
 			(err,data)=>{
  				tickets=data;
 				session.endDialogWithResult({response:tickets});
