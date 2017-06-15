@@ -47,13 +47,14 @@ bot.dialog('ServiceDesk.Update',[
 	},
 	function(session,results){
 		logThis("Hello");
-		logThis(results.response.Tickets);
+		//logThis(results.response.Tickets);
 		if(typeof results.response.TicketNumber==="undefined"){
 			var msg=new builder.Message(session);
 			//msg.attachmentLayout(builder.AttachmentLayout.carousel);
-			for(var ticket in results.response.Tickets){
+			for(var i=0;i<results.response.Tickets.length;i++){
 				//logThis(aticket);
 				//var ticket=aticket[0];
+				var ticket=results.response.Tickets[i];
 				session.send(ticket.number);
 			}
 			session.send("Hi...").endDialog();
