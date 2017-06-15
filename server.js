@@ -95,19 +95,17 @@ bot.dialog('ServiceDesk.Update/GetTickets',[
 		logThis("In the ServiceDesk.Update/GetTickets dialog");
 		//console.log(session.message.address);
 		//session.send("In the getTickets function");
-	}
-	var uName=session.message.address.user.name;
-	var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
-	var tickets;
-	Snow.getRecords(
+		var uName=session.message.address.user.name;
+		var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
+		var tickets;
+		Snow.getRecords(
 		{table:'incident',query:{'caller_id.user_name':'Abel.Tuter'}},
-		(err,data)=>{
- 			tickets=data;
-			session.endDialogWithResult({response:tickets});
-		}
-	);
+			(err,data)=>{
+ 				tickets=data;
+				session.endDialogWithResult({response:tickets});
+			}
+		);
 	}
-
 ]);
 
 
