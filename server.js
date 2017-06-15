@@ -46,7 +46,7 @@ bot.dialog('ServiceDesk.Update',[
 		session.beginDialog('ServiceDesk.Update/GetTicketNumber');
 	},
 	function(session,results){
-		logThis(results);
+		logThis(results.response.Tickets[0][0]);
 		if(typeof results.response.TicketNumber==="undefined"){
 			var msg=new builder.Message(session);
 			//msg.attachmentLayout(builder.AttachmentLayout.carousel);
