@@ -51,10 +51,10 @@ bot.dialog('ServiceDesk.Update',[
 		if(typeof results.response.TicketNumber==="undefined"){
 			var msg=new builder.Message(session);
 			//msg.attachmentLayout(builder.AttachmentLayout.carousel);
-			for(var aticket in results.response.Tickets){
-				logThis(aticket);
-				var ticket=aticket[0];
-				logThis(ticket);
+			for(var ticket in results.response.Tickets){
+				//logThis(aticket);
+				//var ticket=aticket[0];
+				session.send(ticket.number);
 			}
 			session.send("Hi...").endDialog();
 		}
