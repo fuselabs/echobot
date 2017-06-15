@@ -53,37 +53,9 @@ bot.dialog('ServiceDesk.Update',[
 			for(var aticket in results.response.Tickets){
 				logThis(aticket);
 				var ticket=aticket[0];
-				msg.addAttachment({
-					"contentType": "application/vnd.microsoft.card.adaptive",
-					"content": {
-            					"type": "AdaptiveCard",
-						"body":[
-							{"type":"TextBlock",
-							"text": "Bum",
-                        				"size": "large",
-                        				"weight": "bolder"
-                    					},
-                    					{"type": "TextBlock",
-							 "size":"large",
-							 "weight":"bolder",
-                        				 "text": "Boo"
-                    					},
-							{"type": "TextBlock",
-                        				 "text": "Bah"
-                    					},
-						],
-						"actions":[
-							{
-							"type":"Action.Http",
-							"method":"GET",
-							"url":"https://wiprodemo4.service-now.com/sp",
-							"title":"View ticket"
-							}
-						]
-					}
-				});
+				logThis(ticket);
 			}
-			session.send(msg).endDialog();
+			session.send("Hi...").endDialog();
 		}
 		else{
 			session.send("Finding the status of the ticket :"+results.response.TicketNumber);
