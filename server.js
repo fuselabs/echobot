@@ -60,7 +60,7 @@ bot.dialog('ServiceDesk.Update',[
 				var card=new builder.HeroCard(session)
 				                    .title(ticket.number+" "+ticket.short_description+" "+ticket.category)
 				                    .subtitle(ticket.state);
-				aCards.[i]=card;
+				aCards[i]=card;
 				//session.send(msg);
 			}
 			msg.attachments(aCards);
