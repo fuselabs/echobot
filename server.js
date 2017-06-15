@@ -49,45 +49,22 @@ bot.dialog('ServiceDesk.Update',[
 		logThis("Hello");
 		//logThis(results.response.Tickets);
 		if(typeof results.response.TicketNumber==="undefined"){
-			
-			//msg.attachmentLayout(builder.AttachmentLayout.carousel);
+			var msg=new builder.Message(session);
+			var aCards=[];
+			msg.attachmentLayout(builder.AttachmentLayout.carousel);
 			for(var i=0;i<results.response.Tickets.length;i++){
 				//logThis(aticket);
 				//var ticket=aticket[0];
 				var ticket=results.response.Tickets[i];
 				session.send(ticket.number);
-				var msg=new builder.Message(session)
-				.addAttachment({
-					"contentType": "application/vnd.microsoft.card.adaptive",
-					"content": {
-            					"type": "AdaptiveCard",
-						"body":[
-							{"type":"TextBlock",
-							"text": ticket.number+" "+ticket.short_description,
-                        				"size": "large",
-                        				"weight": "bolder"
-                    					},
-                    					{"type": "TextBlock",
-							 "size":"large",
-							 "weight":"bolder",
-                        				 "text": ticket.state
-                    					},
-							{"type": "TextBlock",
-                        				 "text": ticket.category
-                    					},
-						],
-						"actions":[
-							{
-							"type":"Action.Http",
-							"method":"GET",
-							"url":"https://wiprodemo4.service-now.com/sp",
-							"title":"View ticket"
-							}
-						]
-					}
-				});
-			session.send(msg);
+				var card=new builder.HeroCard(session)
+				                    .title(ticket.number+" "+ticket.short_description+" "+ticket.category)
+				                    .subtitle(ticket.state);
+				aCards.[i]=card;
+				//session.send(msg);
 			}
+			msg.attachments(aCards);
+			session.send(msg);
 			
 		}
 		else{
