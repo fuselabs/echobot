@@ -63,25 +63,37 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 			console.log(results.response+":"+typeof(results.response));
 		}
 		if(results.response==true){
+		   session.dialogData.ticketNumberAvailable=true;
 		   builder.Prompts.text(session,"Great. Can you enter the ticket number? It should start with a INC, SRQ or CHG and a 7 digit number");
 		}
 		else{
+		   session.dialogData.ticketNumberAvailable=false;
 		   session.send("Getting your tickets off the service portal");
 		   session.sendTyping();
-		    getTickets(session);
+		   session.beginDialog('ServiceDesk.Update/GetTickets');
+		   //getTickets(session);
+		   /*
 		   if(debug==1){console.log("Return value:"+session.userData.Tickets);}
 		   setTimeout(function(){},5000);
-		   next();
+		   */
+		   //next();
 		}
 	},
 	function(session,results){
+		if(session.dialogData.ticketNumberAvailable==true){
 			if(debug==1){
 				console.log("The ticket number is:"+results.response+":"+session.userData.Tickets);
 				session.send("The ticket number is:"+results.response);
 			}
 			session.userData.TicketNumber=results.response;
 			//session.dialogData.TicketNumberAvailable=true;
-			session.endDialogWithResult({response:session.userData});		
+		}
+		else{
+			session.userData.Tickets=results.response.tickets;
+			
+		}
+		session.endDialogWithResult({response:session.userData});
+
 	}
 		
 ]);
@@ -104,11 +116,32 @@ function(session,args,next){
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
 
+bot.dialog('ServiceDesk.Update/GetTickets',[
+	function(session,args,next){
+		if(debug==1){
+		console.log("In the getTickets function");
+		console.log(session.message.address);
+		//session.send("In the getTickets function");
+	}
+	var uName=session.message.address.user.name;
+	var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
+	var tickets;
+	Snow.getRecords(
+		{table:'incident',query:{'caller_id.user_name':'Abel.Tuter'}},
+		(err,data)=>{
+ 			tickets=data;
+			session.endDialogWithResult({response:tickets});
+		}
+	);
+	}
+
+]);
 /*
 function startProactiveDialog(address){
 	bot.beginDialog(address,'*:/proactive');
 }
 */
+
 
 function getTickets(session){
 	if(debug==1){
