@@ -47,9 +47,41 @@ bot.dialog('ServiceDesk.Update',[
 	},
 	function(session,results){
 		logThis(results);
-		console.log("TicketNumber:"+typeof(results.response.TicketNumber)+":tickets:"+results.response.Tickets);
 		if(typeof results.response.TicketNumber==="undefined"){
-			session.send("Here are your tickets and ticket status"+results.response.Tickets);
+			var msg=new builder.Message(session);
+			msg.attachmentLayout(builder.AttachmentLayout.carousel);
+			for(ticket in results.response.Tickets){
+				msg.addAttachment({
+					contentType: "application/vnd.microsoft.card.adaptive",
+					content: {
+            					type: "AdaptiveCard",
+						body:[
+							{"type":"TextBlock",
+							"text": ticket.number+" "+ticket.short_description,
+                        				"size": "large",
+                        				"weight": "bolder"
+                    					},
+                    					{"type": "TextBlock",
+							 "size":"large",
+							 "weight":"bolder",
+                        				 "text": ticket.state
+                    					},
+							{"type": "TextBlock",
+                        				 "text": ticket.category
+                    					},
+						],
+						"actions":[
+							{
+							"type":"Action.Http",
+							"method":"GET",
+							"url":"https://wiprodemo4.service-now.com/sp",
+							"title":"View ticket"
+							}
+						]
+					}
+				});
+			}
+			session.send(msg);
 		}
 		else{
 			session.send("Finding the status of the ticket :"+results.response.TicketNumber);
