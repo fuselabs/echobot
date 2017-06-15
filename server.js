@@ -35,6 +35,8 @@ bot.dialog('ServiceDesk.Update',[
 			session.send("Finding the status of ticket :"+ticket.entity);
 		}
 		else{
+			session.userData.TicketNumber=undefined;
+			session.userData.Tickets=undefined;
 			next();
 						
 		}
