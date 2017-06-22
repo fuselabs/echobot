@@ -85,7 +85,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,results,next){
 		logThis(results);
 		if(session.dialogData.ticketNumberAvailable==true){	
-			session.beginDialog('ServiceNow:/GetTicket',{ticket:results.response});
+			session.beginDialog('ServiceNow:/GetTicket',{ticket_number:results.response});
 		}
 		else{
 			session.beginDialog('ServiceNow:/GetTickets');
