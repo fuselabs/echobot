@@ -46,10 +46,10 @@ bot.dialog('ServiceDesk.Update',[
 			var msg=new builder.Message(session);
 			var aCards=[];
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
-			for(var i=0;i<results.response.Tickets.length;i++){
+			for(var i=0;i<results.response.length;i++){
 				//logThis(aticket);
 				//var ticket=aticket[0];
-				var ticket=results.response.Tickets[i];
+				var ticket=results.response[i];
 				session.send(ticket.number);
 				var card=new builder.HeroCard(session)
 				                    .title(ticket.number+" "+ticket.short_description+" "+ticket.category)
