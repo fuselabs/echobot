@@ -10,7 +10,7 @@ lib.dialog('/GetTickets',[
 		var uName=session.message.address.user.name;
 		var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
 		var tickets;
-		logThis(session.message.address);
+		//logThis(session.message.address);
 		var arName=session.message.address.user.name.split(' ');
 		Snow.getRecords(
 			{table:'incident',query:{'caller_id.first_name':'Abel',
