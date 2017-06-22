@@ -32,23 +32,16 @@ bot.dialog('ServiceDesk.Update',[
 		logThis("In ServiceDesk.Update dialog");
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
-			session.send("Finding the status of ticket :"+ticket.entity);
+			session.beginDialog('ServiceNow:/GetTicket',{'ticket_number':ticket});
 		}
 		else{
-			session.userData.TicketNumber=undefined;
-			session.userData.Tickets=undefined;
-			next();
-						
+			session.beginDialog('ServiceDesk.Update/GetTicketNumber');			
 		}
 	},
-	function(session,results,next){
-		session.dialogData.TicketNumberAvailable=false;
-		session.beginDialog('ServiceDesk.Update/GetTicketNumber');
-	},
 	function(session,results){
-		logThis("Hello");
-		//logThis(results.response.Tickets);
-		if(typeof results.response.TicketNumber==="undefined"){
+		//logThis("Hello");
+		logThis(results.response.Tickets);
+		if(typeof results.response.Tickets!="undefined"){
 			var msg=new builder.Message(session);
 			var aCards=[];
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
@@ -68,7 +61,7 @@ bot.dialog('ServiceDesk.Update',[
 			
 		}
 		else{
-			session.send("Finding the status of the ticket :"+results.response.TicketNumber);
+			session.send("Whoops! Something went wrong");
 		
 		}
 	}
@@ -89,21 +82,25 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		else{
 		   session.dialogData.ticketNumberAvailable=false;
 		   session.send("No Worries. I am getting your tickets off the service portal");
-		   session.beginDialog('ServiceNow:/GetTickets');
+		   next();
 		}
 	},
-	function(session,results){
-		logThis(results);
+	function(session,results,next){
+		//logThis(results);
 		if(session.dialogData.ticketNumberAvailable==true){	
-			session.userData.TicketNumber=results.response;
+			session.beginDialog('ServiceNow:/GetTicket',{ticket:results.response});
+			//session.userData.TicketNumber=results.response;
 			//session.dialogData.TicketNumberAvailable=true;
 		}
 		else{
-			session.userData.Tickets=results.response;
-			
+			session.beginDialog('ServiceNow:/GetTickets');
+			//session.userData.Tickets=results.response;	
 		}
-		session.endDialogWithResult({response:session.userData});
-
+		//session.endDialogWithResult({response:session.userData});
+	},
+	function(session,results){
+		logThis(results);
+		session.endDialogWithResult({response:results.Tickets});
 	}
 		
 ]);
