@@ -25,10 +25,12 @@ lib.dialog('/GetTickets',[
 lib.dialog('/GetTicket',[
 		function(session,args,next){
 			console.log("In the ServiceNow:/GetTicket function");
+			console.log(args);
+			console.log("Finding ticket:"+args.ticket_number);
 			var uName=session.message.address.user.name;
 			var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
 			var tickets;
-			var arName=session.message.address.user.name.split(' ');
+			//var arName=session.message.address.user.name.split(' ');
 			Snow.getRecords(
 			{table:'incident',query:{'number':args.ticket_number}},
 			function (err,data){
