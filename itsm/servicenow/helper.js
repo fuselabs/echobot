@@ -4,7 +4,7 @@ var serviceNow = require("service-now");
 var lib=new builder.Library('ServiceNow');
 lib.dialog('/GetTickets',[
 	function(session,args,next){
-		logThis("In the ServiceNow/GetTickets dialog");
+		//logThis("In the ServiceNow/GetTickets dialog");
 		//console.log(session.message.address);
 		//session.send("In the getTickets function");
 		var uName=session.message.address.user.name;
