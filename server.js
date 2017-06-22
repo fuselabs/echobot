@@ -40,7 +40,7 @@ bot.dialog('ServiceDesk.Update',[
 	},
 	function(session,results){
 		logThis("Hello");
-		logThis(results.response.Tickets);
+		logThis(results);
 		if(typeof results.response.Tickets!="undefined"){
 			var msg=new builder.Message(session);
 			var aCards=[];
