@@ -39,7 +39,7 @@ bot.dialog('ServiceDesk.Update',[
 		}
 	},
 	function(session,results){
-		//logThis("Hello");
+		logThis("Hello");
 		logThis(results.response.Tickets);
 		if(typeof results.response.Tickets!="undefined"){
 			var msg=new builder.Message(session);
