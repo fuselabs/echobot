@@ -47,15 +47,11 @@ bot.dialog('ServiceDesk.Update',[
 			var aCards=[];
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
 			for(var i=0;i<results.response.length;i++){
-				//logThis(aticket);
-				//var ticket=aticket[0];
 				var ticket=results.response[i];
-				session.send(ticket.number);
 				var card=new builder.HeroCard(session)
 				                    .title(ticket.number+" "+ticket.short_description+" "+ticket.category)
 				                    .subtitle(ticket.state);
 				aCards[i]=card;
-				//session.send(msg);
 			}
 			msg.attachments(aCards);
 			session.send(msg);
@@ -87,17 +83,13 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		}
 	},
 	function(session,results,next){
-		//logThis(results);
+		logThis(results);
 		if(session.dialogData.ticketNumberAvailable==true){	
 			session.beginDialog('ServiceNow:/GetTicket',{ticket:results.response});
-			//session.userData.TicketNumber=results.response;
-			//session.dialogData.TicketNumberAvailable=true;
 		}
 		else{
 			session.beginDialog('ServiceNow:/GetTickets');
-			//session.userData.Tickets=results.response;	
 		}
-		//session.endDialogWithResult({response:session.userData});
 	},
 	function(session,results){
 		logThis(results);
