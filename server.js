@@ -32,7 +32,7 @@ bot.dialog('ServiceDesk.Update',[
 		logThis("In ServiceDesk.Update dialog");
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
-			session.beginDialog('ServiceNow:/GetTicket',{'ticket_number':ticket});
+			session.beginDialog('ServiceNow:/GetTicket',{'ticket_number':ticket,'type':'entity'});
 		}
 		else{
 			session.beginDialog('ServiceDesk.Update/GetTicketNumber');			
@@ -85,7 +85,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,results,next){
 		logThis(results);
 		if(session.dialogData.ticketNumberAvailable==true){	
-			session.beginDialog('ServiceNow:/GetTicket',{ticket_number:results.response});
+			session.beginDialog('ServiceNow:/GetTicket',{ticket_number:results.response,'type':'number'});
 		}
 		else{
 			session.beginDialog('ServiceNow:/GetTickets');
