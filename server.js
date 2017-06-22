@@ -49,7 +49,7 @@ bot.dialog('ServiceDesk.Update',[
 		else if(typeof results.response!="undefined"){
 			tickets=results.response;
 		}
-		if(typeof results.response!="undefined"){
+		if(tickets.length!=0){
 			var msg=new builder.Message(session);
 			var aCards=[];
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
