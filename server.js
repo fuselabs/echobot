@@ -89,7 +89,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		else{
 		   session.dialogData.ticketNumberAvailable=false;
 		   session.send("No Worries. I am getting your tickets off the service portal");
-		   session.beginDialog('ServiceNow:GetTickets/');
+		   session.beginDialog('ServiceNow:/GetTickets');
 		}
 	},
 	function(session,results){

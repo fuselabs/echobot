@@ -2,7 +2,7 @@ var builder=require('botbuilder');
 var serviceNow = require("service-now");
 
 var lib=new builder.Library('ServiceNow');
-lib.dialog('GetTickets',[
+lib.dialog('/GetTickets',[
 	function(session,args,next){
 		logThis("In the ServiceNow/GetTickets dialog");
 		//console.log(session.message.address);
