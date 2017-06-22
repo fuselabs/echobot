@@ -41,7 +41,8 @@ bot.dialog('ServiceDesk.Update',[
 	function(session,results){
 		logThis("Hello");
 		logThis(results);
-		if(typeof results.response.Tickets!="undefined"){
+		logThis(typeof results.response);
+		if(typeof results.response!="undefined"){
 			var msg=new builder.Message(session);
 			var aCards=[];
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
