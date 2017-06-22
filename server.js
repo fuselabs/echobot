@@ -1,8 +1,6 @@
 var restify = require('restify');
 var builder = require('botbuilder');
-var serviceNow = require("service-now");
 const util=require('util');
-//const debuglog=util.debuglog('CRASHCART_DEBUG:');
 const debug=1;
 
 function logThis(results){
@@ -23,6 +21,8 @@ var bot = new builder.UniversalBot(connector,function(session){
 						session.send("Hi");
 					     }
 );
+bot.set('persistConversationData',false);
+bot.library(require('./itsm/servicenow/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 bot.recognizer(new builder.LuisRecognizer(luisModel));
 
@@ -89,7 +89,7 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		else{
 		   session.dialogData.ticketNumberAvailable=false;
 		   session.send("No Worries. I am getting your tickets off the service portal");
-		   session.beginDialog('ServiceDesk.Update/GetTickets');
+		   session.beginDialog('ServiceNow:GetTickets/');
 		}
 	},
 	function(session,results){
@@ -108,28 +108,6 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		
 ]);
 
-bot.dialog('ServiceDesk.Update/GetTickets',[
-	function(session,args,next){
-		logThis("In the ServiceDesk.Update/GetTickets dialog");
-		//console.log(session.message.address);
-		//session.send("In the getTickets function");
-		var uName=session.message.address.user.name;
-		var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
-		var tickets;
-		logThis(session.message.address);
-		var arName=session.message.address.user.name.split(' ');
-		Snow.getRecords(
-			{table:'incident',query:{'caller_id.first_name':'Abel',
-					 'caller_id.last_name':'Tuter'
-					}
-			},
-			(err,data)=>{
- 				tickets=data;
-				session.endDialogWithResult({response:tickets});
-			}
-		);
-	}
-]);
 
 
 bot.dialog('ServiceDesk.Greet',[
