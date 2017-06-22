@@ -42,12 +42,19 @@ bot.dialog('ServiceDesk.Update',[
 		logThis("Hello");
 		logThis(results);
 		logThis(typeof results.response);
+		var Tickets;
+		if(typeof results.Tickets!="undefined"){
+			tickets=results.Tickets;
+		}
+		else if(typeof results.response!="undefined"){
+			tickets=results.response;
+		}
 		if(typeof results.response!="undefined"){
 			var msg=new builder.Message(session);
 			var aCards=[];
 			msg.attachmentLayout(builder.AttachmentLayout.carousel);
-			for(var i=0;i<results.response.length;i++){
-				var ticket=results.response[i];
+			for(var i=0;i<tickets.length;i++){
+				var ticket=tickets[i];
 				var card=new builder.HeroCard(session)
 				                    .title(ticket.number+" "+ticket.short_description+" "+ticket.category)
 				                    .subtitle(ticket.state);
