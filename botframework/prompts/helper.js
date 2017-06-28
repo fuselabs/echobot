@@ -49,7 +49,7 @@ lib.dialog('/CheckPrereqs',[
     session.beginDialog(args.check.name,args.check.parameters);
   },
   function(session,result){
-    logthis(session.dialogData.args);
+    logThis(session.dialogData.args);
     if('persistResponse' in session.dialogData.args){
       if('persistVariable' in session.dialogData.args && session.dialogData.args['persistVariable']!=undefined){
         session.conversationData[session.dialogData.args.persistVariable]=result.response;
