@@ -49,9 +49,9 @@ var gjNewTicketConv={
 	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
 		check:{
-			name:"MSBotFramework:/GetConfirm",
+			name:"MSBotFramework:/GetText",
 			parameters:{
-				message:"Umm.. You don't seem to have any tickets. Do you want to create a new one?"
+				message:"Umm.. You don't seem to have any tickets. Please describe your problem"
 			}
 		},
 		success:{
