@@ -35,6 +35,32 @@ lib.dialog('/GetText',[
   }
 ]);
 
+lib.dialog('/CheckPrereqs',[
+  function(session,args,next){
+    console.log("In the MSBotFramework:/CheckPrereqs function");
+    session.dialogData.args=args;
+    session.beginDialog(args.check.name,args.check.parameters);
+  },
+  function(session,result){
+    if(result.response==true){
+      if(!session.dialogData.args.success.name){
+        session.endDialogWithResult({response:result.response});
+      }
+      else{      
+        session.beginDialog(session.dialogData.args.success.name,session.dialogData.args.success.parameters);
+      }
+    }
+    else{
+      if(!session.dialogData.args.failure.name){
+        session.endDialogWithResult({response:result.response});
+      }
+      else{
+        session.beginDialogData(session.dialogData.args.failure.name,session.dialogData.failure.parameters);
+      }
+    }
+  }
+]);
+
 module.exports.createLibrary = function () {
     return lib.clone();
 };
