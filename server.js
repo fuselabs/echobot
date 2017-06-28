@@ -36,9 +36,23 @@ var gjTicketConv={
 			   }
 	      },
 	 success:{
-		 name: "MSBotFramework:/GetText",
-		 parameters:{message:"Great. Can you enter the ticket number?"}
-	 },
+		 name: "MSBotFramework:/CheckPrereqs",
+		 check:{ name:"MSBotFramework:/GetText",
+			 parameters:{ 
+				 message:"Great. Can you enter the ticket number?",
+				 persistResponse:true,
+				 persistVariable:'Ticket'
+			 }
+		 },
+		 success:{
+			 name:"ServiceNow:/GetTicket",
+			 parameters:{message:null} 
+	 	 },
+		 failure:{
+		 	name:"",
+		 	parameters:{message:null}
+		 }
+	},
 	failure:{
 		name:"ServiceNow:/GetTickets",
 		parameters:{message:null}
