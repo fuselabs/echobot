@@ -56,7 +56,20 @@ var gjNewTicketConv={
 		},
 		success:{
 			name:"MSBotFramework:/CheckPrereqs",
-			parameters:gjGetIncident.parameters
+			parameters:{
+				check:{
+					name:"MSBotFramework:/GetText",
+					parameters:{message:"Please describe your problem"}
+				},
+				success:{
+					name:"",
+					parameters:{message:null}
+				},
+				failure:{
+					name:"",
+					parameters:{message:null}
+				}
+			}
 		},
 		failure:{
 			name:"",
