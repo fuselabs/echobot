@@ -39,7 +39,7 @@ lib.dialog('/GetText',[
     map['response']=result.response;
     map['resumed']=null;
     map['success']=true;
-    session.endDialogWithResult(map);
+    session.endDialogWithResult({response:result.response,resumed:null,success:true});
   }
 ]);
 
