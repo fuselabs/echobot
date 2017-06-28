@@ -53,10 +53,15 @@ lib.dialog('/CheckPrereqs',[
     logThis(session.dialogData.args);
     if('persistResponse' in session.dialogData.args.check.parameters){
 	    console.log("persistResponse exists");
-	    if('persistVariable' in session.dialogData.args.check.parameters && 
-	 	    session.dialogData.args.check.parameters['persistVariable']!=undefined){
-        		session.conversationData[session.dialogData.args.persistVariable]=result.response;
-			logThis(session.dialogData.args);
+	    if('persistVariable' in session.dialogData.args.check.parameters){
+		    console.log("persistVariable exists");
+		    if(typeof session.dialogData.args.check.parameters.persistVariable!=undefined){
+			    console.log("persistVariable refers to "+session.dialogData.args.check.parameters.persistVariable);
+		    }
+		    else{
+			    console.log("persistVariable is undefined");
+		    }
+        		
 	    }
 	    else{
 		    console.log("persistVariable is missing");
