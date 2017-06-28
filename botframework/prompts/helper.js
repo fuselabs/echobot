@@ -16,3 +16,7 @@ lib.dialog('/GetText',[
     });
   }
 ]);
+
+module.exports.createLibrary = function () {
+    return lib.clone();
+};
