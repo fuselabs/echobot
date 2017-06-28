@@ -15,7 +15,7 @@ lib.dialog('/GetText',[
                 +'Result is:'+result.response
                );
     var map={}
-    map[sResult]=result.response;
+    map['response']=result.response;
     map['resumed']=null;
     session.endDialogWithResult(map);
   }
