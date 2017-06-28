@@ -27,6 +27,28 @@ bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 bot.recognizer(new builder.LuisRecognizer(luisModel));
 
+var gjNewTicketConv={
+	name:"MSBotFramework:/CheckPrereqs",
+	parameters:{
+		check:{
+			name:"MSBotFramework:/GetConfirm",
+			parameters:{
+				message:"Umm.. You don't seem to have any tickets. Do you want to create a new one?"
+			}
+		},
+		success:{
+			name:"MSBotFrameWork:/GetText",
+			parameters:{
+				message:"Please describe your problem"
+			}
+		},
+		failure:{
+			name:"",
+			parameters:{message:null}
+		}
+	}		
+};
+
 var gjTicketConv={
 name:"MSBotFramework:/CheckPrereqs",
 parameters:{
@@ -104,8 +126,8 @@ bot.dialog('ServiceDesk.Update',[
 			
 		}
 		else{
-			session.send("Whoops! Something went wrong");
-		
+			session.beginDialog(gjNewTicketConv.name,gjNewTicketConv.parameters);
+			session.endConversation();
 		}
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
