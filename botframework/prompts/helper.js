@@ -61,7 +61,7 @@ lib.dialog('/CheckPrereqs',[
       }
       else{
         console.log("Invoking the failure function");
-        session.beginDialogData(session.dialogData.args.failure.name,session.dialogData.args.failure.parameters);
+        session.beginDialog(session.dialogData.args.failure.name,session.dialogData.args.failure.parameters);
       }
     }
   }
