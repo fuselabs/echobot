@@ -14,10 +14,10 @@ lib.dialog('/GetText',[
     console.log('Result returned from MSBotFramework:/GetText function is in variable:'+sResult
                 +'Result is:'+result.response
                );
-    session.endDialogWithResult({
-       sResult:result.response,
-      'resumed':null
-    });
+    var map={}
+    map[sResult]=result.response;
+    map['resumed']=null;
+    session.endDialogWithResult(map);
   }
 ]);
 
