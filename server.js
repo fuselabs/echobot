@@ -55,7 +55,7 @@ var gjNewTicketConv={
 			}
 		},
 		success:{
-			name:"MSBotFramework:/CheckPrereqs",
+			name:gjGetIncident.name,
 			parameters:{
 				check:{
 					name:"MSBotFramework:/GetText",
@@ -155,7 +155,7 @@ bot.dialog('ServiceDesk.Update',[
 			
 		}
 		else{
-			session.beginDialog(gjNewTicketConv.name,gjNewTicketConv.parameters);
+			session.replaceDialog(gjNewTicketConv.name,gjNewTicketConv.parameters);
 			//session.endConversation();
 		}
 	}
