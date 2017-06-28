@@ -41,7 +41,7 @@ var gjTicketConv={
 	 },
 	failure:{
 		name:"ServiceNow:/GetTickets",
-		parameters:{}
+		parameters:{message:null}
 	}
 };
 
