@@ -37,7 +37,7 @@ var gjNewTicketConv={
 			}
 		},
 		success:{
-			name:"MSBotFrameWork:/GetText",
+			name:"MSBotFramework:/GetText",
 			parameters:{
 				message:"Please describe your problem"
 			}
