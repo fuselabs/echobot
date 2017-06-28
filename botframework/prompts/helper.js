@@ -1,6 +1,13 @@
 var builder=require('botbuilder');
-
 var lib=new builder.Library('MSBotFramework');
+const util=require('util');
+const debug=1;
+
+function logThis(results){
+	if(debug==1){
+	console.log(util.inspect(results));
+	}
+}
 
 lib.dialog('/GetConfirm',[
   function(session,args,next){
@@ -42,6 +49,12 @@ lib.dialog('/CheckPrereqs',[
     session.beginDialog(args.check.name,args.check.parameters);
   },
   function(session,result){
+    logthis(session.dialogData.args);
+    if('persistResponse' in session.dialogData.args){
+      if('persistVariable' in session.dialogData.args && session.dialogData.args['persistVariable']!=undefined){
+        session.conversationData[session.dialogData.args.persistVariable]=result.response;
+      }
+    }
     if(result.response==true){
       console.log("The Check function returned success");
       if(!session.dialogData.args.success.name){
