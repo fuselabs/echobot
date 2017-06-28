@@ -18,7 +18,7 @@ lib.dialog('/GetConfirm',[
     console.log('Result returned from MSBotFramework:/GetConfirm function is in variable: response'
                 +'Result is:'+result.response
                 );
-    session.endDialogWithResult({response:result.response,resumed:null});
+    session.endDialogWithResult({response:result.response,resumed:null,success:true});
   }
 ]);
                 
@@ -38,6 +38,7 @@ lib.dialog('/GetText',[
     var map={}
     map['response']=result.response;
     map['resumed']=null;
+    map['success']=true;
     session.endDialogWithResult(map);
   }
 ]);
@@ -53,13 +54,14 @@ lib.dialog('/CheckPrereqs',[
     if('persistResponse' in session.dialogData.args){
       if('persistVariable' in session.dialogData.args && session.dialogData.args['persistVariable']!=undefined){
         session.conversationData[session.dialogData.args.persistVariable]=result.response;
+	logThis(session.dialogData.args);
       }
     }
-    if(result.response==true){
+    if(result.success==true){
       console.log("The Check function returned success");
       if(!session.dialogData.args.success.name){
         console.log("But no success function was defined, so returning with results");
-        session.endDialogWithResult({response:result.response});
+        session.endDialogWithResult({response:result.response,success:true});
       }
       else{
         console.log("Invoking the success function");
@@ -70,7 +72,7 @@ lib.dialog('/CheckPrereqs',[
       console.log("The Check function returned failure");
       if(!session.dialogData.args.failure.name){
         console.log("But no failure function was defined, so returning with results");
-        session.endDialogWithResult({response:result.response});
+        session.endDialogWithResult({response:result.response,success:false});
       }
       else{
         console.log("Invoking the failure function");
