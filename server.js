@@ -27,16 +27,34 @@ bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 bot.recognizer(new builder.LuisRecognizer(luisModel));
 
+
+var gjTicketConv={
+	check:{ 
+		name: "MSBotFramework:/GetConfirm",
+	        parameters:{ message:
+			    "Do you have the ticket number handy? It should start with a INC, SRQ or CHG and be followed by a 7 digit number"
+			   }
+	      },
+	 success:{
+		 name: "MSBotFramework:/GetText",
+		 parameters:{message:"Great. Can you enter the ticket number?"}
+	 },
+	failure:{
+		name:"ServiceNow:/GetTickets",
+		parameters:{}
+	}
+};
+
 //If you have an Update request
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
 		logThis("In ServiceDesk.Update dialog");
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
-			session.beginDialog('ServiceNow:/GetTicket',{'ticket_number':ticket,'type':'entity'});
+			session.beginDialog('ServiceNow:/GetTicket',{'ticket_number':ticket.entity,'type':'entity'});
 		}
 		else{
-			session.beginDialog('ServiceDesk.Update/GetTicketNumber');			
+			session.beginDialog('MSBotFramework:/CheckPrereqs',gjTicketConv);			
 		}
 	},
 	function(session,results){
