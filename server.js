@@ -142,6 +142,7 @@ bot.dialog('ServiceDesk.Update',[
 			
 		}
 		else{
+			session.endConversation();
 			session.replaceDialog(gjNewTicketConv.name,gjNewTicketConv.parameters);
 			//session.endConversation();
 		}
