@@ -83,7 +83,11 @@ bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 		if(results.response==true){
 		   session.dialogData.ticketNumberAvailable=true;
 		   //builder.Prompts.text(session,"Great. Can you enter the ticket number?");
-		   session.beginDialog('MSBotFramework:/GetText',{returnVariable:'ticketNumber'});
+		   session.beginDialog('MSBotFramework:/GetText',{
+			   	message:"Great. Can you enter the ticket number?",
+			   	returnVariable:'ticketNumber'
+		   	   }
+		    );
 		}
 		else{
 		   session.dialogData.ticketNumberAvailable=false;
