@@ -23,7 +23,7 @@ var bot = new builder.UniversalBot(connector,function(session){
 );
 bot.set('persistConversationData',false);
 bot.library(require('./itsm/servicenow/helper').createLibrary());
-bot.library(require('./botframework/promts/helper').createLibrary());
+bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 bot.recognizer(new builder.LuisRecognizer(luisModel));
 
