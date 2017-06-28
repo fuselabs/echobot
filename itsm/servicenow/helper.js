@@ -56,12 +56,17 @@ lib.dialog('/GetTicket',[
 			}
 		);
 	}
-
-
-
-
 ]);
 
+lib.dialog('/CreateIncident',[
+	function(session,args,next){
+		console.log("In the ServiceNow:/CreateIncident function");
+		var short_description=session.conversationData.IncidentDescription;
+		var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
+		Snow.setTable('incident');
+		//Snow.
+]);
+		
 module.exports.createLibrary = function () {
     return lib.clone();
 };
