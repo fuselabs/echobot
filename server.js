@@ -25,7 +25,11 @@ bot.set('persistConversationData',false);
 bot.library(require('./itsm/servicenow/helper').createLibrary());
 bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
-bot.recognizer(new builder.LuisRecognizer(luisModel));
+var recognizer=new builder.LuisRecognizer(luisModel).onEnabled(function(context,callback){
+	var enabled=context.dialogStack.length()===0;
+	callback(null,enabled);
+});
+bot.recognizer(recognizer);
 
 var gjGetIncident={
 	name:"MSBotFramework:/CheckPrereqs",
@@ -142,7 +146,8 @@ bot.dialog('ServiceDesk.Update',[
 			
 		}
 		else{
-			session.endConversation();
+			//session.endConversation();
+			//session.endDialog();
 			session.replaceDialog(gjNewTicketConv.name,gjNewTicketConv.parameters);
 			//session.endConversation();
 		}
