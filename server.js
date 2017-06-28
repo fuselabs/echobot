@@ -49,9 +49,9 @@ var gjNewTicketConv={
 	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
 		check:{
-			name:"MSBotFramework:/GetText",
+			name:"MSBotFramework:/GetConfirm",
 			parameters:{
-				message:"Umm.. You don't seem to have any tickets. Please describe your problem"
+				message:"Umm.. You don't seem to have any tickets. Do you want to open a new one?"
 			}
 		},
 		success:{
@@ -156,7 +156,7 @@ bot.dialog('ServiceDesk.Update',[
 		}
 		else{
 			session.beginDialog(gjNewTicketConv.name,gjNewTicketConv.parameters);
-			session.endConversation();
+			//session.endConversation();
 		}
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
