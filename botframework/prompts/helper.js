@@ -7,7 +7,7 @@ lib.dialog('/GetText',[
     console.log("In the MSBotFramework:/GetText function");
     console.log("The return variable is:"+args.returnVariable);
     session.dialogData.returnVariable=args.returnVariable;
-    builder.prompt.Text(session,args.message);
+    builder.Prompts.Text(session,args.message);
   },
   function(session,result){
     var sResult='response.'+session.dialogData.returnVariable;
