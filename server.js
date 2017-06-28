@@ -27,6 +27,24 @@ bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 bot.recognizer(new builder.LuisRecognizer(luisModel));
 
+var gjGetIncident={
+	name:"MSBotFramework:/CheckPrereqs",
+	parameters:{
+		check:{
+			name:"MSBotFramework:/GetText",
+			parameters:{message:"Please describe your problem"}
+		},
+		success:{
+			name:"",
+			parameters:{message:null}
+		},
+		failure:{
+			name:"",
+			parameters:{message:null}
+		}
+	}
+};
+	
 var gjNewTicketConv={
 	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
@@ -37,10 +55,8 @@ var gjNewTicketConv={
 			}
 		},
 		success:{
-			name:"MSBotFramework:/GetText",
-			parameters:{
-				message:"Please describe your problem"
-			}
+			name:gjGetIncident.name,
+			parameters:gjGetIncident.parameters
 		},
 		failure:{
 			name:"",
