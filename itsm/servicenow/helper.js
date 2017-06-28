@@ -64,6 +64,7 @@ lib.dialog('/CreateIncident',[
 		var short_description=session.conversationData.IncidentDescription;
 		var Snow=new serviceNow('https://wiprodemo4.service-now.com/','admin','LWP@2015');
 		Snow.setTable('incident');
+	}
 		//Snow.
 ]);
 		
