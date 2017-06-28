@@ -9,9 +9,13 @@ lib.dialog('/GetText',[
     session.dialogData.returnVariable=args.returnVariable;
     builder.prompt.Text(session,args.message);
   },
-  function(session,results){
+  function(session,result){
+    var sResult='response.'+session.dialogData.returnVariable;
+    console.log('Result returned from MSBotFramework:/GetText function is in variable:'+sResult
+                +'Result is:'+result.response
+               );
     session.endDialogWithResults({
-      'response.'+session.dialogData.returnVariable:results.response,
+       sResult:result.response,
       'resumed':null
     });
   }
