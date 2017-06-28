@@ -76,7 +76,10 @@ bot.dialog('ServiceDesk.Update',[
 bot.dialog('ServiceDesk.Update/GetTicketNumber',[
 	function(session,args,next){
 		logThis("In the ServiceDesk.Update/GetTicketNumber dialog");
-		builder.Prompts.confirm(session,"Do you have the ticket number handy? It should start with a INC, SRQ or CHG and be followed by a 7 digit number");		
+		//builder.Prompts.confirm(session,"Do you have the ticket number handy? It should start with a INC, SRQ or CHG and be followed by a 7 digit number");
+		session.beginDialog('MSBotFramework:/GetConfirm',{
+			message:"Do you have the ticket number handy? It should start with a INC, SRQ or CHG and be followed by a 7 digit number"
+		});
 	},
 	function(session,results,next){
 		logThis(results);
