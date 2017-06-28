@@ -14,7 +14,7 @@ lib.dialog('/GetText',[
     console.log('Result returned from MSBotFramework:/GetText function is in variable:'+sResult
                 +'Result is:'+result.response
                );
-    session.endDialogWithResults({
+    session.endDialogWithResult({
        sResult:result.response,
       'resumed':null
     });
