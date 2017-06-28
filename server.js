@@ -28,7 +28,7 @@ var luisModel = process.env.LUIS_ENDPOINT;
 bot.recognizer(new builder.LuisRecognizer(luisModel));
 
 var gjTicketConv={
-name:"MSBotFrameWork:/CheckPrereqs",
+name:"MSBotFramework:/CheckPrereqs",
 parameters:{
 	check:{ 
 		name: "MSBotFramework:/GetConfirm",
