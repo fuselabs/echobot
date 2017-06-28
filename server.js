@@ -27,8 +27,9 @@ bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 bot.recognizer(new builder.LuisRecognizer(luisModel));
 
-
 var gjTicketConv={
+name:"MSBotFrameWork:/CheckPrereqs",
+parameters:{
 	check:{ 
 		name: "MSBotFramework:/GetConfirm",
 	        parameters:{ message:
@@ -59,6 +60,7 @@ var gjTicketConv={
 		name:"ServiceNow:/GetTickets",
 		parameters:{message:null}
 	}
+}
 };
 
 //If you have an Update request
@@ -67,16 +69,17 @@ bot.dialog('ServiceDesk.Update',[
 		logThis("In ServiceDesk.Update dialog");
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
+			session.conversationData.Ticket=ticket.entity;
 			session.beginDialog('ServiceNow:/GetTicket',{'ticket_number':ticket.entity,'type':'entity'});
 		}
 		else{
-			session.beginDialog('MSBotFramework:/CheckPrereqs',gjTicketConv);			
+			session.beginDialog(gjTicketConv.name,gjTicketConv.parameters);			
 		}
 	},
 	function(session,results){
 		logThis("Hello");
-		logThis(results);
-		logThis(typeof results.response);
+		//logThis(results);
+		//logThis(typeof results.response);
 		var Tickets;
 		if(typeof results.Tickets!="undefined"){
 			tickets=results.Tickets;
@@ -97,6 +100,7 @@ bot.dialog('ServiceDesk.Update',[
 			}
 			msg.attachments(aCards);
 			session.send(msg);
+			session.endConversation(); //need to call this to clear all conversation variables
 			
 		}
 		else{
@@ -106,48 +110,6 @@ bot.dialog('ServiceDesk.Update',[
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
-
-bot.dialog('ServiceDesk.Update/GetTicketNumber',[
-	function(session,args,next){
-		logThis("In the ServiceDesk.Update/GetTicketNumber dialog");
-		//builder.Prompts.confirm(session,"Do you have the ticket number handy? It should start with a INC, SRQ or CHG and be followed by a 7 digit number");
-		session.beginDialog('MSBotFramework:/GetConfirm',{
-			message:"Do you have the ticket number handy? It should start with a INC, SRQ or CHG and be followed by a 7 digit number"
-		});
-	},
-	function(session,results,next){
-		logThis(results);
-		if(results.response==true){
-		   session.dialogData.ticketNumberAvailable=true;
-		   //builder.Prompts.text(session,"Great. Can you enter the ticket number?");
-		   session.beginDialog('MSBotFramework:/GetText',{
-			   	message:"Great. Can you enter the ticket number?",
-			   	returnVariable:'ticketNumber'
-		   	   }
-		    );
-		}
-		else{
-		   session.dialogData.ticketNumberAvailable=false;
-		   session.send("No Worries. I am getting your tickets off the service portal");
-		   next();
-		}
-	},
-	function(session,results,next){
-		logThis(results);
-		if(session.dialogData.ticketNumberAvailable==true){	
-			session.beginDialog('ServiceNow:/GetTicket',{ticket_number:results.response,'type':'number'});
-		}
-		else{
-			session.beginDialog('ServiceNow:/GetTickets');
-		}
-	},
-	function(session,results){
-		logThis(results);
-		session.endDialogWithResult({response:results.Tickets});
-	}
-		
-]);
-
 
 
 bot.dialog('ServiceDesk.Greet',[
