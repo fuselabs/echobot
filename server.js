@@ -26,15 +26,15 @@ bot.library(require('./itsm/servicenow/helper').createLibrary());
 bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 var recognizer=new builder.LuisRecognizer(luisModel).onEnabled(function(context,callback){
-	logThis("<Context>");
-	logThis(context);
+	//logThis("<Context>");
+	//logThis(context);
 	if(context.dialogStack().length===0){
 		callback(null,true);
 	}
 	else{
 		callback(null,false);
 	}
-	logThis("</Context>");
+	//logThis("</Context>");
 	//callback(null,true);
 	
 });
@@ -118,7 +118,7 @@ parameters:{
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
 		logThis("In ServiceDesk.Update dialog");
-		session.conversationData.enableLUIS=false;
+		//session.conversationData.enableLUIS=false;
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
 			session.conversationData.Ticket=ticket.entity;
