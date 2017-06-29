@@ -29,7 +29,7 @@ var recognizer=new builder.LuisRecognizer(luisModel).onEnabled(function(context,
 	logThis("<Context>");
 	logThis(context);
 	logThis("</Context>");
-	if(context.conversationData.enableLUIS){
+	if(context.conversationData.enableLUIS || !('enableLUIS' in context.conversationData)){
 		callback(null,true);
 	}
 	else{
