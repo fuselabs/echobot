@@ -27,14 +27,10 @@ bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 var recognizer=new builder.LuisRecognizer(luisModel).onEnabled(function(context,callback){
 	logThis("<Context>");
-	logThis(context);
+	logThis(context.dialogStack());
 	logThis("</Context>");
-	if(typeof context.message.dialogData.dialogStack=="undefined"){
-		callback(null,true);
-	}
-	else{
-		callback(null,false);
-	}
+	callback(null,true);
+	
 });
 bot.recognizer(recognizer);
 
