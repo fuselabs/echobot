@@ -165,7 +165,7 @@ bot.dialog('ServiceDesk.Greet',[
 function(session,args,next){
 	logThis("Debug:In the ServiceDesk.Greet dialog");
 	logThis(session.message.address);
-	session.endDialog(sGreeting);
+	session.endConversation(sGreeting);
 	//session.send("OK. Calling the service desk...");
 	//startProactiveDialog(endUser);
 }
