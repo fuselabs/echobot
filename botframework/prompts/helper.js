@@ -18,7 +18,13 @@ lib.dialog('/GetConfirm',[
     console.log('Result returned from MSBotFramework:/GetConfirm function is in variable: response'
                 +'Result is:'+result.response
                 );
-    session.endDialogWithResult({response:result.response,resumed:null,success:true});
+	if(result.response){
+		session.endDialogWithResult({response:result.response,resumed:null,success:true});	
+	}
+	else{
+		session.endDialogWithResult({response:result.response,resumed:null,success:false});
+	}
+    
   }
 ]);
                 
