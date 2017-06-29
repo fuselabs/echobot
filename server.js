@@ -26,8 +26,15 @@ bot.library(require('./itsm/servicenow/helper').createLibrary());
 bot.library(require('./botframework/prompts/helper').createLibrary());
 var luisModel = process.env.LUIS_ENDPOINT;
 var recognizer=new builder.LuisRecognizer(luisModel).onEnabled(function(context,callback){
-	var enabled=context.dialogStack.length()===0;
-	callback(null,enabled);
+	logThis("<Context>");
+	logThis(context);
+	logThis("</Context>");
+	if(context.conversationData.enableLUIS){
+		callback(null,true);
+	}
+	else{
+		callback(null,false);
+	}
 });
 bot.recognizer(recognizer);
 
@@ -109,6 +116,7 @@ parameters:{
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
 		logThis("In ServiceDesk.Update dialog");
+		session.conversationData.enableLUIS=false;
 		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
 		if(ticket){
 			session.conversationData.Ticket=ticket.entity;
@@ -142,7 +150,8 @@ bot.dialog('ServiceDesk.Update',[
 			}
 			msg.attachments(aCards);
 			session.send(msg);
-			session.endConversation(); //need to call this to clear all conversation variables
+			session.conversationData.enableLUIS=true;
+			session.endConversation(); //need to call this to clear all conversation variables including enable
 			
 		}
 		else{
