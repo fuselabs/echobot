@@ -1,6 +1,6 @@
 var builder=require('botbuilder');
 var lib=new builder.Library('ServiceDesk');
-
+var logger=require('../../');
 
 /*
 Dialog definitions
