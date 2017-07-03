@@ -1,4 +1,4 @@
-# echobot
+# Crashcart
 A sample bot for getting started with Bot Framework
 
 This repo is an example of using Node.js to build a bot, which is hosted on Azure and uses continuous deployment from Github.
