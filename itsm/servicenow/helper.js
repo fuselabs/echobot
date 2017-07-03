@@ -82,6 +82,7 @@ lib.dialog('/MakeIncidents',[
 			aCards[i]=card;					      
 		}
 		msg.attachments(aCards);
+		session.send(msg);
 		session.endDialogWithResult({response:msg,success:true});
 	}	
 ]);
