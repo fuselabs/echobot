@@ -74,7 +74,7 @@ lib.dialog('/MakeIncidents',[
 		var msg=new builder.Message(session);
 		var aCards=[];
 		msg.attachmentLayout(builder.AttachmentLayout.carousel);
-		if(var i=0;i<session.conversationData.Tickets.length;i++){
+		for(var i=0;i<session.conversationData.Tickets.length;i++){
 			var card=new builder.HeroCard(session).title(ticket.number+" "+ticket.short_description+" "+ticket.category)
 							      .subtitle(ticket.state);
 			aCards[i]=card;					      
