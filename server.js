@@ -57,7 +57,8 @@ var gjGetIncident={
 		}
 	}
 };
-	
+
+
 var gjNewTicketConv={
 	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
@@ -77,6 +78,29 @@ var gjNewTicketConv={
 		}
 	}		
 };
+
+var gjGetAndDisplayTicket={
+	name:"MSBotFramework:/CheckPrereqs",
+	parameters:{
+		check:{
+			name:"ServiceNow:/GetTicket",
+			parameters:{
+				message:null,
+				persistResponse:true,
+				persistVariable:'Tickets'
+			}
+		},
+		success:{
+			name:"ServiceNow:/MakeIncidents",
+			parameters:{message:null}
+		},
+		failure:{
+			name:gjNewTicketConv.name,
+			parameters:gjNewTicketConv.parameters
+		}
+	}
+};
+
 
 var gjTicketConv={
 name:"MSBotFramework:/CheckPrereqs",
@@ -98,8 +122,8 @@ parameters:{
 			 		}
 		 		},
 		 		success:{
-			 		name:"ServiceNow:/GetTicket",
-			 		parameters:{message:null} 
+			 		name:gjGetAndDisplayTicket.name,
+			 		parameters:gjGetAndDisplayTicket.parameters
 	 	 		},
 		 		failure:{
 		 			name:"",
@@ -130,6 +154,7 @@ bot.dialog('ServiceDesk.Update',[
 	},
 	function(session,results){
 		logThis("Hello");
+		/*
 		//logThis(results);
 		//logThis(typeof results.response);
 		var Tickets;
@@ -162,6 +187,7 @@ bot.dialog('ServiceDesk.Update',[
 			session.replaceDialog(gjNewTicketConv.name,gjNewTicketConv.parameters);
 			//session.endConversation();
 		}
+		*/
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
