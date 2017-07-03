@@ -18,10 +18,10 @@ lib.dialog('/GetEntity',[
 		*/
 		var eVar=builder.EntityRecognizer.findEntity(session.conversationData.intent.entities, args.entityName);
 		if(eVar){
-			session.endDialogWithResult({result.response:eVar.entity,success:true});
+			session.endDialogWithResult({response:eVar.entity,success:true});
 		}
 		else{
-			session.endDialogWithResult({result.response:null,success:false});
+			session.endDialogWithResult({response:null,success:false});
 		}
 	}	   
 ]);
