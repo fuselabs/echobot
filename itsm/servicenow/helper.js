@@ -6,7 +6,7 @@ lib.dialog('/GetTickets',[
 	function(session,args,next){
 		console.log("In the ServiceNow:/GetTickets function");
 		var uName=session.message.address.user.name;
-		var Snow=new serviceNow(process.ENV.ITSM_ENDPOINT,process.env.ITSM_ACCOUNT,process.env.ITSM_PASSWORD);
+		var Snow=new serviceNow(process.env.ITSM_ENDPOINT,process.env.ITSM_ACCOUNT,process.env.ITSM_PASSWORD);
 		var tickets;
 		var arName=session.message.address.user.name.split(' ');
 		Snow.getRecords(
@@ -35,7 +35,7 @@ lib.dialog('/GetTicket',[
 			console.log(args);
 			console.log("Finding ticket:"+args.ticket_number);
 			var uName=session.message.address.user.name;
-			var Snow=new serviceNow(process.ENV.ITSM_ENDPOINT,process.ENV.ITSM_ACCOUNT,process.ENV.ITSM_PASSWORD);
+			var Snow=new serviceNow(process.env.ITSM_ENDPOINT,process.env.ITSM_ACCOUNT,process.env.ITSM_PASSWORD);
 			var tickets;
 			
 			var number=session.conversationData.Ticket;
