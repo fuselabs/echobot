@@ -178,41 +178,8 @@ bot.dialog('ServiceDesk.Update',[
 		}
 	},
 	function(session,results){
-		logThis("Hello");
-		/*
-		//logThis(results);
-		//logThis(typeof results.response);
-		var Tickets;
-		if(typeof results.Tickets!="undefined"){
-			tickets=results.Tickets;
-		}
-		else if(typeof results.response!="undefined"){
-			tickets=results.response;
-		}
-		if(tickets.length!=0){
-			var msg=new builder.Message(session);
-			var aCards=[];
-			msg.attachmentLayout(builder.AttachmentLayout.carousel);
-			for(var i=0;i<tickets.length;i++){
-				var ticket=tickets[i];
-				var card=new builder.HeroCard(session)
-				                    .title(ticket.number+" "+ticket.short_description+" "+ticket.category)
-				                    .subtitle(ticket.state);
-				aCards[i]=card;
-			}
-			msg.attachments(aCards);
-			session.send(msg);
-			session.conversationData.enableLUIS=true;
-			session.endConversation(); //need to call this to clear all conversation variables including enable
-			
-		}
-		else{
-			//session.endConversation();
-			//session.endDialog();
-			session.replaceDialog(gjNewTicketConv.name,gjNewTicketConv.parameters);
-			//session.endConversation();
-		}
-		*/
+		logThis("Ending ServiceDesk.Update dialog");
+		session.endConversation();
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
