@@ -28,6 +28,7 @@ bot.set('persistConversationData',false);
 //Import the necessary libararies
 bot.library(require('./itsm/servicenow/helper').createLibrary());
 bot.library(require('./botframework/prompts/helper').createLibrary());
+bot.library(require('./convs/ServiceDesk/helper').createLibrary());
 
 //Set the LUIS endpoint model and restrict calls to it within the dialog
 var luisModel = process.env.LUIS_ENDPOINT;
@@ -43,7 +44,6 @@ bot.recognizer(recognizer);
 
 /*
 Dialog definitions
-*/
 var gjGetIncident={
 	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
@@ -209,6 +209,7 @@ function(session,args,next){
 	//startProactiveDialog(endUser);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
+*/
 
 // Setup Restify Server
 var server = restify.createServer();
