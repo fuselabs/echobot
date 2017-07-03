@@ -106,7 +106,7 @@ var gjGetAndDisplayOneTicket={
 };
 
 var gjGetAndDisplayAllTickets={
-	name:"MSBotFrameWork:/CheckPrereqs",
+	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
 		check:{
 			name:"ServiceNow:/GetTickets",
