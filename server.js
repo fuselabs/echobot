@@ -188,15 +188,9 @@ var gjGetTicketStatusConv={
 bot.dialog('ServiceDesk.Update',[
 	function(session,args,next){
 		logThis("In ServiceDesk.Update dialog");
-		//session.conversationData.enableLUIS=false;
-		var ticket=builder.EntityRecognizer.findEntity(args.intent.entities, 'ServiceDesk.TicketType');
-		if(ticket){
-			session.conversationData.Ticket=ticket.entity;
-			session.beginDialog('ServiceNow:/GetTicket',{'ticket_number':ticket.entity,'type':'entity'});
-		}
-		else{
-			session.beginDialog(gjTicketConv.name,gjTicketConv.parameters);			
-		}
+		//Save the global intent to the conversation data
+		session.conversationData.intent=args.intent;
+		session.beginDialog(gjGetTicketStatusConv.name,gjGetTicketSatusConv.parameters);			
 	},
 	function(session,results){
 		logThis("Ending ServiceDesk.Update dialog");
