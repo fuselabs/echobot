@@ -9,6 +9,23 @@ function logThis(results){
 	}
 }
 
+lib.dialog('/GetEntity',[
+	function(session,args,next){
+		/*
+		Gets an entity from a list of intent entities persisted in conversationData and returns it
+		The entityName is passed on as an argument parameter: entityName
+		You can persist this variable by making it part of a checkPrereqs function
+		*/
+		var eVar=builder.EntityRecognizer.findEntity(session.conversationData.intent.entities, args.entityName);
+		if(eVar){
+			session.endDialogWithResult({result.response:eVar.entity,success:true});
+		}
+		else{
+			session.endDialogWithResult({result.response:null,success:false});
+		}
+	}	   
+]);
+
 lib.dialog('/GetConfirm',[
   function(session,args,next){
     console.log("In the MSBotFramework:/GetConfirm function");
