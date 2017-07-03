@@ -190,7 +190,7 @@ bot.dialog('ServiceDesk.Update',[
 		logThis("In ServiceDesk.Update dialog");
 		//Save the global intent to the conversation data
 		session.conversationData.intent=args.intent;
-		session.beginDialog(gjGetTicketStatusConv.name,gjGetTicketSatusConv.parameters);			
+		session.beginDialog(gjGetTicketStatusConv.name,gjGetTicketStatusConv.parameters);
 	},
 	function(session,results){
 		logThis("Ending ServiceDesk.Update dialog");
