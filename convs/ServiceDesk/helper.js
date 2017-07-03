@@ -1,3 +1,7 @@
+var builder=require('botbuilder');
+var lib=new builder.Library('ServiceDesk');
+
+
 /*
 Dialog definitions
 */
@@ -142,22 +146,22 @@ var gjGetTicketStatusConv={
 };
 
 //If you have an Update request
-bot.dialog('ServiceDesk.Update',[
+lib.dialog('/GetUpdate',[
 	function(session,args,next){
-		logThis("In ServiceDesk.Update dialog");
+		logThis("In ServiceDesk:/GetUpdate dialog");
 		//Save the global intent to the conversation data
 		session.conversationData.intent=args.intent;
 		session.beginDialog(gjGetTicketStatusConv.name,gjGetTicketStatusConv.parameters);
 	},
 	function(session,results){
-		logThis("Ending ServiceDesk.Update dialog");
+		logThis("Ending ServiceDesk:/GetUpdate dialog");
 		session.endConversation();
 	}
 ]).triggerAction({matches: 'ServiceDesk.Update'})
 ;
 
 
-bot.dialog('ServiceDesk.Greet',[
+lib.dialog('/Greet',[
 function(session,args,next){
 	logThis("Debug:In the ServiceDesk.Greet dialog");
 	logThis(session.message.address);
