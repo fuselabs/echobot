@@ -170,3 +170,7 @@ function(session,args,next){
 	//startProactiveDialog(endUser);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
+
+module.exports.createLibrary = function () {
+    return lib.clone();
+};
