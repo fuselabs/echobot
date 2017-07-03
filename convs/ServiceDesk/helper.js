@@ -3,6 +3,12 @@ var lib=new builder.Library('ServiceDesk');
 const logger=require('../../lib/core/logger/helper.js');
 var logThis=logger.logThis;
 
+
+/*
+Global definitions
+*/
+
+const sGreeting="Hi this is crashcart! How can I help you? You can type out your problem (I cannot print a file) or ask for an update on an existing ticket (what's the status of IN2030?) and I will respond";
 /*
 Dialog definitions
 */
