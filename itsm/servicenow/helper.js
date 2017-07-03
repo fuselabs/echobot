@@ -1,6 +1,8 @@
 var builder=require('botbuilder');
 var serviceNow = require("service-now");
 
+console.log(process.env.ITSM_ENDPOINT,process.env.ITSM_ACCOUNT,process.env.ITSM_PASSWORD);
+
 var lib=new builder.Library('ServiceNow');
 lib.dialog('/GetTickets',[
 	function(session,args,next){
@@ -16,7 +18,7 @@ lib.dialog('/GetTickets',[
 			},
 			function (err,data){
  				tickets=data;
-				session.endDialogWithResult({'Tickets':tickets});
+				session.endDialogWithResult({'response':tickets,'success':true});
 			}
 		);
 	}
@@ -52,12 +54,36 @@ lib.dialog('/GetTicket',[
 			{table:'incident',query:{'number':number}},
 			function (err,data){
  				tickets=data;
-				session.endDialogWithResult({'Tickets':tickets});
+				session.endDialogWithResult({response:tickets,success:true});
 			}
 		);
 	}
 ]);
 
+lib.dialog('/MakeIncidents',[
+	function(session,args,next){
+		/*
+		Returns a set of hero cards at session.conversationData.TicketCards
+		picks up the Tickets from session.conversationData.Tickets
+		*/
+		console.log("In the ServiceNow:/MakeIncidents function");
+		var tickets;
+		if('Tickets' in session.conversationData){
+			tickets=session.conversationData.Tickets;
+		}
+		var msg=new builder.Message(session);
+		var aCards=[];
+		msg.attachmentLayout(builder.AttachmentLayout.carousel);
+		if(var i=0;i<session.conversationData.Tickets.length;i++){
+			var card=new builder.HeroCard(session).title(ticket.number+" "+ticket.short_description+" "+ticket.category)
+							      .subtitle(ticket.state);
+			aCards[i]=card;					      
+		}
+		msg.attachments(aCards);
+		session.endDialogWithResult({response:msg,success:true});
+	}	
+]);
+					     
 lib.dialog('/CreateIncident',[
 	function(session,args,next){
 		console.log("In the ServiceNow:/CreateIncident function");
