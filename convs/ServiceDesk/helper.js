@@ -1,6 +1,7 @@
 var builder=require('botbuilder');
 var lib=new builder.Library('ServiceDesk');
-var logger=require('../../');
+const logger=require('../../lib/core/logger/helper.js');
+var logThis=logger.logThis;
 
 /*
 Dialog definitions
