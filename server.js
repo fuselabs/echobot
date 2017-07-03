@@ -21,25 +21,29 @@ var bot = new builder.UniversalBot(connector,function(session){
 						session.send("Hi");
 					     }
 );
+
+//Set CHEEP's persistConversationData parameters
 bot.set('persistConversationData',false);
+
+//Import the necessary libararies
 bot.library(require('./itsm/servicenow/helper').createLibrary());
 bot.library(require('./botframework/prompts/helper').createLibrary());
+
+//Set the LUIS endpoint model and restrict calls to it within the dialog
 var luisModel = process.env.LUIS_ENDPOINT;
 var recognizer=new builder.LuisRecognizer(luisModel).onEnabled(function(context,callback){
-	//logThis("<Context>");
-	//logThis(context);
 	if(context.dialogStack().length===0){
 		callback(null,true);
 	}
 	else{
 		callback(null,false);
 	}
-	//logThis("</Context>");
-	//callback(null,true);
-	
 });
 bot.recognizer(recognizer);
 
+/*
+Dialog definitions
+*/
 var gjGetIncident={
 	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
@@ -79,7 +83,7 @@ var gjNewTicketConv={
 	}		
 };
 
-var gjGetAndDisplayTicket={
+var gjGetAndDisplayOneTicket={
 	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
 		check:{
@@ -101,6 +105,27 @@ var gjGetAndDisplayTicket={
 	}
 };
 
+var gjGetAndDisplayAllTickets={
+	name:"MSBotFrameWork:/CheckPrereqs",
+	parameters:{
+		check:{
+			name:"ServiceNow:/GetTickets",
+			parameters:{
+				message:null,
+				persistResponse:true,
+				persistVariable:'Tickets'
+			}
+		},
+		success:{
+			name:"ServiceNow:/MakeIncidents",
+			parameters:{message:null}
+		},
+		failure:{
+			name:gjNewTicketConv.name,
+			parameters:gjNewTicketConv.parameters
+		}
+	}
+};
 
 var gjTicketConv={
 name:"MSBotFramework:/CheckPrereqs",
@@ -122,8 +147,8 @@ parameters:{
 			 		}
 		 		},
 		 		success:{
-			 		name:gjGetAndDisplayTicket.name,
-			 		parameters:gjGetAndDisplayTicket.parameters
+			 		name:gjGetAndDisplayOneTicket.name,
+			 		parameters:gjGetAndDisplayOneTicket.parameters
 	 	 		},
 		 		failure:{
 		 			name:"",
@@ -132,8 +157,8 @@ parameters:{
 		 }
 	},
 	failure:{
-		name:"ServiceNow:/GetTickets",
-		parameters:{message:null}
+		name:gjGetAndDisplayAllTickets.name,
+		parameters:gjGetAndDisplayAllTickets.parameters
 	}
 }
 };
