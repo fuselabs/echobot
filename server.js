@@ -127,7 +127,7 @@ var gjGetAndDisplayAllTickets={
 	}
 };
 
-var gjTicketConv={
+var gjPromptUserForTicketNumber={
 name:"MSBotFramework:/CheckPrereqs",
 parameters:{
 	check:{ 
@@ -161,6 +161,27 @@ parameters:{
 		parameters:gjGetAndDisplayAllTickets.parameters
 	}
 }
+};
+
+var gjGetTicketStatusConv={
+	name:"MSBotFramework:/CheckPrereqs",
+	parameters:{
+		check:{
+			name:"MSBotFramework:/GetEntity",
+			parameters:{
+				persistResponse:true,
+				persistVariable:'Ticket'
+			}
+		},
+		success:{
+			name:gjGetAndDisplayOneTicket.name,
+			parameters:gjGetAndDisplayOneTicket.parameters
+		},
+		failure:{
+			name:gjPromptUserForTicketNumber.name,
+			parameters:gjPromptUserForTicketNumber.parameters
+		}
+	}
 };
 
 //If you have an Update request
