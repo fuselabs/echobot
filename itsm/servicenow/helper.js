@@ -77,7 +77,20 @@ lib.dialog('/MakeIncidents',[
 		msg.attachmentLayout(builder.AttachmentLayout.carousel);
 		for(var i=0;i<session.conversationData.Tickets.length;i++){
 			var ticket=tickets[i];
-			var card=new builder.HeroCard(session).title(ticket.number+" "+ticket.short_description+" "+ticket.category)
+			var card=new builder.Message(session).addAttachment({
+				contentType: "application/vnd.microsoft.card.adaptive",
+				content: { 
+					type: "AdaptiveCard",
+					body:{
+						"type":"TextBlock",
+						"text":"Adaptive Card",
+						"size":"larger",
+						"weight":"bolder"
+					}
+					  
+				}
+			});
+			//var card=new builder.HeroCard(session).title(ticket.number+" "+ticket.short_description+" "+ticket.category)
 							      .subtitle(ticket.state);
 			aCards[i]=card;					      
 		}
