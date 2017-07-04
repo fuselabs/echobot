@@ -90,8 +90,10 @@ lib.dialog('/MakeIncidents',[
 					actions:[]		  
 				}
 			});
-			//var card=new builder.HeroCard(session).title(ticket.number+" "+ticket.short_description+" "+ticket.category)
+			/*
+			var card=new builder.HeroCard(session).title(ticket.number+" "+ticket.short_description+" "+ticket.category)
 							      .subtitle(ticket.state);
+			*/
 			aCards[i]=card;					      
 		}
 		msg.attachments(aCards);
