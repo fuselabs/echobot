@@ -105,7 +105,7 @@ lib.dialog('/MakeIncidents',[
 						}
 					],
 					actions:[{
-						"type": "Action.Https",
+						"type": "Action.Http",
 						"method": "GET",
 						"url": url,
 						"title": "View ticket"
