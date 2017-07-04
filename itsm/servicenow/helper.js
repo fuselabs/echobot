@@ -81,12 +81,12 @@ lib.dialog('/MakeIncidents',[
 				contentType: "application/vnd.microsoft.card.adaptive",
 				content: { 
 					type: "AdaptiveCard",
-					body:{
+					body:[{
 						"type":"TextBlock",
 						"text":"Adaptive Card",
 						"size":"larger",
 						"weight":"bolder"
-					}
+					}]
 					  
 				}
 			});
