@@ -81,17 +81,34 @@ lib.dialog('/MakeIncidents',[
 				contentType: "application/vnd.microsoft.card.adaptive",
 				content: { 
 					type: "AdaptiveCard",
-					body:[{
-						"type":"TextBlock",
-						"text":"Adaptive Card",
-						"size":"larger",
-						"weight":"bolder"
-					}],
+					body:[
+						{
+							"type":"TextBlock",
+							"text":ticket.number,
+							"size":"larger",
+							"weight":"bolder"
+						},
+						{
+							"type":"TextBlock",
+							"text":ticket.short_description,
+						},
+						{
+							"type":"TextBlock",
+							"text":"Status:"+ticket.state
+						},
+						{
+							"type":"TextBlock",
+							"size":"smaller",
+							"text":ticket.category
+						}
+					],
 					actions:[{
 						"type": "Action.Http",
 						"method": "POST",
-						"url": "http://foo.com",
-						"title": "Snooze"
+						"url": process.env.ITSM_ENDPOINT+
+						       "sp?sys_id="+ticket.sys_id+
+						       "&view=sp&id=ticket&table=incident",
+						"title": "View ticket"
 					}]		  
 				}
 			});
