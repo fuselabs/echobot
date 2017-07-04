@@ -77,7 +77,7 @@ lib.dialog('/MakeIncidents',[
 		msg.attachmentLayout(builder.AttachmentLayout.carousel);
 		for(var i=0;i<session.conversationData.Tickets.length;i++){
 			var ticket=tickets[i];
-			var url=process.env.ITSM_ENDPOINT+"sp?sys_id="+ticket.sys_id+"&view=sp&id=ticket&table=incident",
+			var url=process.env.ITSM_ENDPOINT+"sp?sys_id="+ticket.sys_id+"&view=sp&id=ticket&table=incident"
 			msg.addAttachment({
 				contentType: "application/vnd.microsoft.card.adaptive",
 				content: { 
