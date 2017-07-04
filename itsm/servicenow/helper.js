@@ -77,7 +77,7 @@ lib.dialog('/MakeIncidents',[
 		msg.attachmentLayout(builder.AttachmentLayout.carousel);
 		for(var i=0;i<session.conversationData.Tickets.length;i++){
 			var ticket=tickets[i];
-			var card=new builder.Message(session).addAttachment({
+			msg.addAttachment({
 				contentType: "application/vnd.microsoft.card.adaptive",
 				content: { 
 					type: "AdaptiveCard",
@@ -87,7 +87,12 @@ lib.dialog('/MakeIncidents',[
 						"size":"larger",
 						"weight":"bolder"
 					}],
-					actions:[]		  
+					actions:[{
+						"type": "Action.Http",
+						"method": "POST",
+						"url": "http://foo.com",
+						"title": "Snooze"
+					}]		  
 				}
 			});
 			/*
