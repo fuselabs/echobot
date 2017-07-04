@@ -99,9 +99,9 @@ lib.dialog('/MakeIncidents',[
 			var card=new builder.HeroCard(session).title(ticket.number+" "+ticket.short_description+" "+ticket.category)
 							      .subtitle(ticket.state);
 			*/
-			aCards[i]=card;					      
+			//aCards[i]=card;					      
 		}
-		msg.attachments(aCards);
+		//msg.attachments(aCards);
 		session.send(msg);
 		session.endDialogWithResult({response:msg,success:true});
 	}	
