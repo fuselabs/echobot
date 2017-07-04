@@ -86,8 +86,8 @@ lib.dialog('/MakeIncidents',[
 						"text":"Adaptive Card",
 						"size":"larger",
 						"weight":"bolder"
-					}]
-					  
+					}],
+					actions:[]		  
 				}
 			});
 			//var card=new builder.HeroCard(session).title(ticket.number+" "+ticket.short_description+" "+ticket.category)
