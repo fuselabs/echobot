@@ -59,7 +59,7 @@ server.get(/.*/, restify.serveStatic({
 	'default': 'index.html'
 }));
 
-server.get(/convs\/ServiceDesk\/?.*/,restify.serveStatic({
+server.get(/\/convs\/ServiceDesk\/?.*/,restify.serveStatic({
 	'directory':'convs/ServiceDesk/',
 	'file':'index.html'
 }));
