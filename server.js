@@ -60,7 +60,7 @@ server.get(/.*/, restify.serveStatic({
 }));
 
 server.get(/\/convs\/ServiceDesk\/?.*/,restify.serveStatic({
-	'directory': __dirname+'/convs/ServiceDesk/',
+	'directory': __dirname,
 	'file':'index.html'
 }));
 server.listen(process.env.port || 3978, function () {
