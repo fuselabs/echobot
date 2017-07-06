@@ -83,14 +83,14 @@ var gTree={type:'check'};
        tree.name=leaf.name;
        tree.parent=parent;
        tree.value=8;
-       tree.type="steelblue";
-	     if(tree.type=='success'){
-		     tree.level="green";
-	     }else if(tree.type=='failure'){
-		     tree.level=="red";
-	     }else{
-		     tree.level="blue";
-	     }
+       //tree.type="steelblue";
+       if(leaf.type=='success'){
+             tree.level="green";
+       }else if(leaf.type=='failure'){
+             tree.level=="red";
+       }else{
+	    tree.level="blue";
+       }
        tree.parameters=leaf.parameters.check;
        tree.children=[{type:'success'},{type:'failure'}];
        buildTree(tree.children[0],leaf.parameters.success,leaf.name);//buildforSuccess
