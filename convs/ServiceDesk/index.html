@@ -76,44 +76,35 @@ var treeData = [
 ];
 
 
-var gTree={type:'check'};
+var gTree={btype:'check'};
 var level=0;
    function buildTree(tree,leaf,parent,level){
-     if(leaf.name=="MSBotFramework:/CheckPrereqs"){
-       //tree.parentId=parent;
-	     if(leaf==0){
-		     tree.name=leaf.name;
-	     }
-	     else{
-		     tree.name=leaf.parameters.check.name+"@level: "+level;
-	     }
-       tree.parent=parent;
-       tree.value=15;
-       //tree.type="steelblue";
-       if(tree.type=='success'){
+     if(tree.btype=='success'){
              tree.level="green";
-       }else if(tree.type=='failure'){
+     }else if(tree.btype=='failure'){
              tree.level=="red";
-       }else{
+     }else{
 	    tree.level="blue";
-       }
-       tree.parameters=leaf.parameters.check;
-       level++;
-       tree.children=[{type:'success'},{type:'failure'}];
-       buildTree(tree.children[0],leaf.parameters.success,leaf.name,level);//buildforSuccess
-       buildTree(tree.children[1],leaf.parameters.failure,leaf.name,level);
      }
-     else{
-       //tree.parentId=parent;
+     tree.parent=parent;
+     tree.value=15;
+     if(leaf.name=="MSBotFramework:/CheckPrereqs"){
+	     tree.name=leaf.parameters.check.name+"@level: "+level;
+	     tree.parameters=leaf.parameters.check;
+	     level++;
+	     tree.children=[{btype:'success'},{btype:'failure'}];
+       	     buildTree(tree.children[0],leaf.parameters.success,leaf.name,level);//buildforSuccess
+             buildTree(tree.children[1],leaf.parameters.failure,leaf.name,level);
+     }else{
        tree.name=leaf.name+"@level: "+level;
        tree.parent=parent;
-       tree.value=8;
+       tree.value=15;
        tree.type="steelblue";
-       tree.level="grey";
+       //tree.level="grey";
        tree.parameters=leaf.parameters;
      }
     }
-    buildTree(gTree,gjGetTicketStatusConv,"null",level);
+buildTree(gTree,gjGetTicketStatusConv,"null",level);
 
 
   
