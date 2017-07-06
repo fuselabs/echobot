@@ -80,7 +80,7 @@ var gTree={type:'check'};
    function buildTree(tree,leaf,parent){
      if(leaf.name=="MSBotFramework:/CheckPrereqs"){
        //tree.parentId=parent;
-       tree.name=leaf.check.name;
+       tree.name=leaf.parameters.check.name;
        tree.parent=parent;
        tree.value=15;
        //tree.type="steelblue";
