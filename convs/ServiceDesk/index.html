@@ -114,6 +114,9 @@ var level=0;
        //tree.level="grey";
        tree.parameters=leaf.parameters;
      }
+	   if(level==0){
+		   tree.name=leaf.name;
+	   }
     }
 buildTree(gTree,gjGetTicketStatusConv,"null",level);
 
