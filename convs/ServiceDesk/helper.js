@@ -155,7 +155,8 @@ var gjGetTicketStatusConv={
 //If you have an Update request
 var _mapping=[
 	{intentName: 'ServiceDesk.Update',
-	 dialogName: '/GetUpdate'
+	 dialogName: '/GetUpdate',
+	 entryPoint:gjGetTicketStatusConv
 	}
 ];
 
@@ -166,7 +167,7 @@ for(i=0;i<1;i++){
 		logThis("In ServiceDesk:/GetUpdate dialog");
 		//Save the global intent to the conversation data
 		session.conversationData.intent=args.intent;
-		session.beginDialog(gjGetTicketStatusConv.name,gjGetTicketStatusConv.parameters);
+		session.beginDialog(_mapping[i].entryPoint.name,_mapping[i].entryPoint.parameters);
 	},
 	function(session,results){
 		logThis("Ending ServiceDesk:/GetUpdate dialog");
