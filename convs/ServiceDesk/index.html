@@ -147,7 +147,7 @@ function update(source) {
 		  return "translate(" + d.y + "," + d.x + ")"; });
 
   nodeEnter.append("circle")
-	  .attr("r", function(d) { return d.id; })
+	  .attr("r", function(d) { return 5; })
 	  .style("stroke", function(d) { return d.type; })
 	  .style("fill", function(d) { return d.level; });
 
