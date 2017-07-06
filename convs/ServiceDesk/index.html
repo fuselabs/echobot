@@ -76,11 +76,12 @@ var treeData = [
 ];
 
 
-var gTree={type:'check'}; 
-   function buildTree(tree,leaf,parent){
+var gTree={type:'check'};
+var level=0;
+   function buildTree(tree,leaf,parent,level){
      if(leaf.name=="MSBotFramework:/CheckPrereqs"){
        //tree.parentId=parent;
-       tree.name=leaf.parameters.check.name;
+       tree.name=leaf.parameters.check.name+"level:"+level;
        tree.parent=parent;
        tree.value=15;
        //tree.type="steelblue";
@@ -92,13 +93,14 @@ var gTree={type:'check'};
 	    tree.level="blue";
        }
        tree.parameters=leaf.parameters.check;
+       level++;
        tree.children=[{type:'success'},{type:'failure'}];
-       buildTree(tree.children[0],leaf.parameters.success,leaf.name);//buildforSuccess
-       buildTree(tree.children[1],leaf.parameters.failure,leaf.name);
+       buildTree(tree.children[0],leaf.parameters.success,leaf.name,level);//buildforSuccess
+       buildTree(tree.children[1],leaf.parameters.failure,leaf.name,level);
      }
      else{
        //tree.parentId=parent;
-       tree.name=leaf.name;
+       tree.name=leaf.name+"level:"+level;
        tree.parent=parent;
        tree.value=8;
        tree.type="steelblue";
