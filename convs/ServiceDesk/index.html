@@ -59,13 +59,13 @@ var level=0;
 	     var branch=0;
 	     if(leaf.parameters.success.name!=''){
 		     //var m={btype:'success'};
-		     tree.children.append({btype:'success'});
+		     tree.children.push({btype:'success'});
 		     buildTree(tree.children[branch],leaf.parameters.success,leaf.name,level);//buildforSuccess
 		     branch+=1;
 	     }
 	     if(leaf.parameters.failure.name!=''){
 		     //var m=
-		     tree.children.append({btype:'failure'});
+		     tree.children.push({btype:'failure'});
 		     buildTree(tree.children[branch],leaf.parameters.failure,leaf.name,level);
 		     branch+=1;
 	     }
