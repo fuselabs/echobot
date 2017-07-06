@@ -111,9 +111,9 @@ var gTree={type:'check'};
 
   
 // ************** Generate the tree diagram	 *****************
-var margin = {top: 20, right: 500, bottom: 20, left: 500},
-	width = 960 - margin.right - margin.left,
-	height = 500 - margin.top - margin.bottom;
+var margin = {top: 20, right: 20, bottom: 20, left: 20},
+	width = 1024 - margin.right - margin.left,
+	height = 768 - margin.top - margin.bottom;
 	
 var i = 0;
 
@@ -154,7 +154,7 @@ function update(source) {
 
   nodeEnter.append("circle")
 	  .attr("r", function(d) { return 5; })
-	  .style("stroke", function(d) { return d.type; })
+	  .style("stroke", function(d) { return "grey"; })
 	  .style("fill", function(d) { return d.level; });
 
   nodeEnter.append("text")
