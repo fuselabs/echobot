@@ -76,7 +76,7 @@ var treeData = [
 ];
 
 
-var gTree={}; 
+var gTree={type:'check'}; 
    function buildTree(tree,leaf,parent){
      if(leaf.name=="MSBotFramework:/CheckPrereqs"){
        //tree.parentId=parent;
@@ -84,7 +84,13 @@ var gTree={};
        tree.parent=parent;
        tree.value=8;
        tree.type="steelblue";
-       tree.level="red";
+	     if(tree.type=='success'){
+		     tree.level="green";
+	     }elseif(tree.type=='failure'){
+		     tree.level=="red";
+	     }else{
+		     tree.level="blue";
+	     }
        tree.parameters=leaf.parameters.check;
        tree.children=[{type:'success'},{type:'failure'}];
        buildTree(tree.children[0],leaf.parameters.success,leaf.name);//buildforSuccess
