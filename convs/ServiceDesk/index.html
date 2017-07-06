@@ -141,7 +141,7 @@ function update(source) {
   nodeEnter.append("text")
 	  .attr("x", function(d) { 
 		  return d.children || d._children ? 
-		  (d.value + 20) * -1 : d.value + 20 })
+		  (d.value + 5) * -1 : d.value + 5 })
 	  .attr("dy", "-.85em")
 	  .attr("text-anchor", function(d) { 
 		  return d.children || d._children ? "end" : "start"; })
