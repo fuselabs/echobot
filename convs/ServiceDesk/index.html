@@ -82,12 +82,20 @@ var gTree={};
        tree.parentId=parent;
        tree.id=leaf.name;
        tree.parameters=leaf.parameters.check;
+       tree.value=8;
+       tree.type="steelblue";
+       tree.level="red";
+       tree.parent=parent;
        tree.children=[{type:'success'},{type:'failure'}];
        buildTree(tree.children[0],leaf.parameters.success,leaf.id);//buildforSuccess
        buildTree(tree.children[1],leaf.parameters.failure,leaf.id);
      }
      else{
        tree.parentId=parent;
+       tree.parent=parent;
+       tree.value=8;
+       tree.type="steelblue";
+       tree.level="red";
        tree.id=leaf.name;
        tree.parameters=leaf.parameters;
      }
@@ -117,7 +125,7 @@ var svg = d3.select("body").append("svg")
 
 root = treeData[0];
   
-update(root);
+update(gTree);
 
 function update(source) {
 
@@ -139,7 +147,7 @@ function update(source) {
 		  return "translate(" + d.y + "," + d.x + ")"; });
 
   nodeEnter.append("circle")
-	  .attr("r", function(d) { return d.value; })
+	  .attr("r", function(d) { return d.id; })
 	  .style("stroke", function(d) { return d.type; })
 	  .style("fill", function(d) { return d.level; });
 
