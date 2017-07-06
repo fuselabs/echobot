@@ -172,7 +172,7 @@ for(i=0;i<1;i++){
 	}
 	];	
 		
-	lib.dialog('/GetUpdate',_funcs).triggerAction({matches: 'ServiceDesk.Update'})
+	lib.dialog('/GetUpdate',_funcs).triggerAction({matches: _mapping[i].intentName})
 ;
 }
 
