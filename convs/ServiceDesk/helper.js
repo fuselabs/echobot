@@ -161,22 +161,24 @@ var _mapping=[
 ];
 
 var _funcs;
-for(i=0;i<1;i++){
-	_funcs=[
+var makeWaterFall(dialogName,entryPoint){
+	return [
 		function(session,args,next){
-		logThis("In ServiceDesk:/GetUpdate dialog");
-		//Save the global intent to the conversation data
-		session.conversationData.intent=args.intent;
-		session.beginDialog(_mapping[i].entryPoint.name,_mapping[i].entryPoint.parameters);
-	},
-	function(session,results){
-		logThis("Ending ServiceDesk:/GetUpdate dialog");
-		session.endConversation();
-	}
-	];	
-		
-	lib.dialog(_mapping[i].dialogName,_funcs).triggerAction({matches: _mapping[i].intentName})
-;
+			logThis("In "+dialogName+" dialog");
+			//Save the global intent to the conversation data
+			session.conversationData.intent=args.intent;
+			session.beginDialog(entryPoint.name,entryPoint.parameters);
+		},
+		function(session,results){
+			logThis("Ending "+dialogName+" dialog");
+			session.endConversation();
+		}
+		];
+}
+
+for(i=0;i<1;i++){
+	_funcs=makeWaterFall(lib.name+":"+_mapping[i].dialogName,_mapping[i].entryPoint);
+	lib.dialog(_mapping[i].dialogName,_funcs).triggerAction({matches: _mapping[i].intentName});
 }
 
 lib.dialog('/Greet',[
