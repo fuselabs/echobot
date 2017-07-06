@@ -145,16 +145,19 @@ function update(source) {
 	  .attr("dy", function(d){
 	                console.log(d.btype);
 	                if(d.btype=='success'){
-				return "-0.05em";
+				return "-0.08em";
 			}else{
-				return "0.05em";
+				return "0.08em";
 			}
   		      }
 	  )
 	  .attr("text-anchor", function(d) { 
 		  return d.children || d._children ? "end" : "start"; })
 	  .text(function(d) { return d.name; })
-	  .style("fill-opacity", 1);
+	  .style("fill-opacity", 1)
+	  .append('svg:title')
+	  .text(function(d){return d.parameters;})
+	;
 
   // Declare the links…
   var link = svg.selectAll("path.link")
