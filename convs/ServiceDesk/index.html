@@ -87,18 +87,27 @@ var level=0;
 	    tree.level="steelblue";
      }
      tree.parent=parent;
-     tree.value=15;
+     tree.value=20;
      if(leaf.name=="MSBotFramework:/CheckPrereqs"){
-	     var names=leaf.parameters.check.name.split('/');
-	     tree.name=names[1]+"@level: "+level;
+	     if(leaf.parameters.check.name==''){
+		     tree.name="Terminated"+"@level: "+level;
+	     }else{
+		     var names=leaf.parameters.check.name.split('/');
+	             tree.name=names[1]+"@level: "+level;
+	     }
 	     tree.parameters=leaf.parameters.check.parameters;
 	     level++;
 	     tree.children=[{btype:'success'},{btype:'failure'}];
        	     buildTree(tree.children[0],leaf.parameters.success,leaf.name,level);//buildforSuccess
              buildTree(tree.children[1],leaf.parameters.failure,leaf.name,level);
      }else{
-       var names=leaf.name.split("/");
-       tree.name=names[1]+"@level: "+level;
+	     if(leaf.name==""){
+		     tree.name="Terminated"+"@level: "+level;
+	     }else{
+		     var names=leaf.name.split("/");
+                     tree.name=names[1]+"@level: "+level;
+	     }
+       
        tree.parent=parent;
        tree.value=15;
        tree.type="steelblue";
@@ -160,7 +169,7 @@ function update(source) {
   nodeEnter.append("text")
 	  .attr("x", function(d) { 
 		  return d.children || d._children ? 
-		  (d.value + 4) * -1 : d.value + 4 })
+		  (d.value + 10) * -1 : d.value + 10 })
 	  .attr("dy", ".35em")
 	  .attr("text-anchor", function(d) { 
 		  return d.children || d._children ? "end" : "start"; })
