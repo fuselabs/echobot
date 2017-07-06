@@ -153,7 +153,7 @@ var gjGetTicketStatusConv={
 };
 
 //If you have an Update request
-var mapping=[
+var _mapping=[
 	{intentName: 'ServiceDesk.Update'}
 ];
 
