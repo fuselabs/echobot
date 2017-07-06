@@ -81,13 +81,18 @@ var level=0;
    function buildTree(tree,leaf,parent,level){
      if(leaf.name=="MSBotFramework:/CheckPrereqs"){
        //tree.parentId=parent;
-       tree.name=leaf.parameters.check.name+"level:"+level;
+	     if(leaf==0){
+		     tree.name=leaf.name;
+	     }
+	     else{
+		     tree.name=leaf.parameters.check.name+"@level: "+level;
+	     }
        tree.parent=parent;
        tree.value=15;
        //tree.type="steelblue";
-       if(leaf.type=='success'){
+       if(tree.type=='success'){
              tree.level="green";
-       }else if(leaf.type=='failure'){
+       }else if(tree.type=='failure'){
              tree.level=="red";
        }else{
 	    tree.level="blue";
@@ -100,7 +105,7 @@ var level=0;
      }
      else{
        //tree.parentId=parent;
-       tree.name=leaf.name+"level:"+level;
+       tree.name=leaf.name+"@level: "+level;
        tree.parent=parent;
        tree.value=8;
        tree.type="steelblue";
