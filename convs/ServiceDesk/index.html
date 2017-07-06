@@ -5,6 +5,25 @@
   <script src='data.js'></script>
 </head>
 <body>
+  <script type="text/javascript">
+   var gTree={}; 
+   function buildTree(tree,leaf,parent){
+     if(leaf.name=="MSBotFramework:/CheckPrereqs"){
+       tree.parentId=parent;
+       tree.id=leaf.name;
+       tree.parameters=leaf.parameters;
+       tree.children=[{type:success},{type:failure}];
+       buildTree(tree.children[0],leaf.success,leaf.id);//buildforSuccess
+       buildTree(tree.children[1],leaf.failure,leaf.id);
+     }
+     else{
+       tree.parentId=parent;
+       tree.id=leaf.name;
+       tree.parameters=leaf.parameters;
+     }
+     
+    }
+  </script>
   <div id='conversation'>
   </div>
 </body>
