@@ -98,8 +98,12 @@ var level=0;
 	     tree.parameters=leaf.parameters.check.parameters;
 	     level++;
 	     tree.children=[{btype:'success'},{btype:'failure'}];
-       	     buildTree(tree.children[0],leaf.parameters.success,leaf.name,level);//buildforSuccess
-             buildTree(tree.children[1],leaf.parameters.failure,leaf.name,level);
+	     if(leaf.parameters.success.name!=''){
+	     	buildTree(tree.children[0],leaf.parameters.success,leaf.name,level);//buildforSuccess
+	     }
+	     if(leaf.parameters.failure.name!=''){
+		     buildTree(tree.children[1],leaf.parameters.failure,leaf.name,level);
+	     }
      }else{
 	     if(leaf.name==""){
 		     tree.name="Terminated"+"@level: "+level;
