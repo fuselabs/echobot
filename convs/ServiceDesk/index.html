@@ -144,7 +144,11 @@ function update(source) {
 		  (d.value + 5) * -1 : d.value + 5 })
 	  .attr("dy", function(d){
 	                console.log(d.btype);
-	  		return "0.05em";
+	                if(d.btype=='success'){
+				return "-0.05em";
+			}else{
+				return "0.05em";
+			}
   		      }
 	  )
 	  .attr("text-anchor", function(d) { 
