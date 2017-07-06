@@ -54,6 +54,12 @@ var server = restify.createServer();
 server.post('/api/messages', connector.listen());
 
 // Serve a static web page
+
+server.get(/\/convs\/ServiceDesk\/?.*/,restify.serveStatic({
+	'directory': __dirname,
+	'default':'index.html'
+}));
+
 server.get(/.*/, restify.serveStatic({
 	'directory': '.',
 	'default': 'index.html'
