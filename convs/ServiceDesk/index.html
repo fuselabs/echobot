@@ -141,8 +141,8 @@ function update(source) {
   nodeEnter.append("text")
 	  .attr("x", function(d) { 
 		  return d.children || d._children ? 
-		  (d.value + 10) * -1 : d.value + 10 })
-	  .attr("dy", ".75em")
+		  (d.value + 20) * -1 : d.value + 20 })
+	  .attr("dy", "-.85em")
 	  .attr("text-anchor", function(d) { 
 		  return d.children || d._children ? "end" : "start"; })
 	  .text(function(d) { return d.name; })
