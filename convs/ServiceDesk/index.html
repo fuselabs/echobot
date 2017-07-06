@@ -11,18 +11,18 @@
      if(leaf.name=="MSBotFramework:/CheckPrereqs"){
        tree.parentId=parent;
        tree.id=leaf.name;
-       tree.parameters=leaf.parameters;
-       tree.children=[{type:success},{type:failure}];
-       buildTree(tree.children[0],leaf.success,leaf.id);//buildforSuccess
-       buildTree(tree.children[1],leaf.failure,leaf.id);
+       tree.parameters=leaf.parameters.check;
+       tree.children=[{type:'success'},{type:'failure'}];
+       buildTree(tree.children[0],leaf.parameters.success,leaf.id);//buildforSuccess
+       buildTree(tree.children[1],leaf.parameters.failure,leaf.id);
      }
      else{
        tree.parentId=parent;
        tree.id=leaf.name;
        tree.parameters=leaf.parameters;
      }
-     
     }
+    buildTree(gTree,gjGetTicketStatusConv,null);
   </script>
   <div id='conversation'>
   </div>
