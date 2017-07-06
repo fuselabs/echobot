@@ -142,7 +142,10 @@ function update(source) {
 	  .attr("x", function(d) { 
 		  return d.children || d._children ? 
 		  (d.value + 5) * -1 : d.value + 5 })
-	  .attr("dy", "-.85em")
+	  .attr("dy", function(d){
+	  		return 0.05*d.y;
+  		      }
+	  )
 	  .attr("text-anchor", function(d) { 
 		  return d.children || d._children ? "end" : "start"; })
 	  .text(function(d) { return d.name; })
