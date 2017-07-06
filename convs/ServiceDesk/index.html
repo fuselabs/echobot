@@ -136,7 +136,10 @@ function update(source) {
   nodeEnter.append("circle")
 	  .attr("r", function(d) { return 5; })
 	  .style("stroke", function(d) { return "grey"; })
-	  .style("fill", function(d) { return d.level; });
+	  .style("fill", function(d) { return d.level; })
+	   .append('svg:title')
+	  .text(function(d){return str(d.parameters);})
+	;
 
   nodeEnter.append("text")
 	  .attr("x", function(d) { 
@@ -147,7 +150,7 @@ function update(source) {
 	                if(d.btype=='success'){
 				return "-0.15em";
 			}else{
-				return "0.55em";
+				return "0.75em";
 			}
   		      }
 	  )
@@ -155,8 +158,7 @@ function update(source) {
 		  return d.children || d._children ? "end" : "start"; })
 	  .text(function(d) { return d.name; })
 	  .style("fill-opacity", 1)
-	  .append('svg:title')
-	  .text(function(d){return d.parameters;})
+	  
 	;
 
   // Declare the links…
