@@ -160,6 +160,23 @@ var _mapping=[
 	}
 ];
 
+
+lib.dialog('/Greet',[
+function(session,args,next){
+	logThis("Debug:In the ServiceDesk.Greet dialog");
+	logThis(session.message.address);
+	session.endConversation(sGreeting);
+	//session.send("OK. Calling the service desk...");
+	//startProactiveDialog(endUser);
+}
+]).triggerAction({matches:'ServiceDesk.Greet'});
+
+/************************************************************************************************************************************
+
+Boiler plate code to dynamically make a library. Do not modify. 
+1. _funcs needs to be in the scope of the library otherwise it doesn't get called
+2. The entrypoint needs to be bound through a closure
+*************************************************************************************************************************************/
 var _funcs;
 function makeWaterFall(dialogName,entryPoint){
 	return [
@@ -176,21 +193,18 @@ function makeWaterFall(dialogName,entryPoint){
 		];
 }
 
-for(i=0;i<1;i++){
+for(i=0;i<_mapping.length;i++){
 	_funcs=makeWaterFall(lib.name+":"+_mapping[i].dialogName,_mapping[i].entryPoint);
 	lib.dialog(_mapping[i].dialogName,_funcs).triggerAction({matches: _mapping[i].intentName});
 }
 
-lib.dialog('/Greet',[
-function(session,args,next){
-	logThis("Debug:In the ServiceDesk.Greet dialog");
-	logThis(session.message.address);
-	session.endConversation(sGreeting);
-	//session.send("OK. Calling the service desk...");
-	//startProactiveDialog(endUser);
-}
-]).triggerAction({matches:'ServiceDesk.Greet'});
-
 module.exports.createLibrary = function () {
     return lib.clone();
 };
+/************************************************************************************************************************************
+**************************************                           End of block   ******************************************************
+*************************************************************************************************************************************/
+
+
+
+
