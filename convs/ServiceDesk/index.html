@@ -141,13 +141,13 @@ function update(source) {
   nodeEnter.append("text")
 	  .attr("x", function(d) { 
 		  return d.children || d._children ? 
-		  (d.value + 5) * -1 : d.value + 5 })
+		  (d.value + 2) * -1 : d.value + 2 })
 	  .attr("dy", function(d){
 	                console.log(d.btype);
 	                if(d.btype=='success'){
 				return "-0.15em";
 			}else{
-				return "0.30em";
+				return "0.45em";
 			}
   		      }
 	  )
