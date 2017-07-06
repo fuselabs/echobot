@@ -161,7 +161,7 @@ var _mapping=[
 ];
 
 var _funcs;
-var makeWaterFall(dialogName,entryPoint){
+function makeWaterFall(dialogName,entryPoint){
 	return [
 		function(session,args,next){
 			logThis("In "+dialogName+" dialog");
