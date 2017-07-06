@@ -33,49 +33,6 @@
 <script src='data.js'></script>	
 <script>
 
-var treeData = [
-  {
-    "name": "Top Level",
-    "parent": "null",
-    "value": 10,
-    "type": "black",
-    "level": "red",
-    "children": [
-      {
-        "name": "Level 2: A",
-        "parent": "Top Level",
-        "value": 15,
-        "type": "grey",
-        "level": "red",
-        "children": [
-          {
-            "name": "Son of A",
-            "parent": "Level 2: A",
-            "value": 5,
-            "type": "steelblue",
-            "level": "orange"
-          },
-          {
-            "name": "Daughter of A",
-            "parent": "Level 2: A",
-            "value": 8,
-            "type": "steelblue",
-            "level": "red"
-          }
-        ]
-      },
-      {
-        "name": "Level 2: B",
-        "parent": "Top Level",
-        "value": 10,
-        "type": "grey",
-        "level": "green"
-      }
-    ]
-  }
-];
-
-
 var gTree={btype:'check'};
 var level=0;
    function buildTree(tree,leaf,parent,level){	   
@@ -97,16 +54,21 @@ var level=0;
 	     }
 	     tree.parameters=leaf.parameters.check.parameters;
 	     level++;
-	     tree.children=[{},{}];
+	     //tree.children=[{},{}];
+	     var branch=0;
 	     if(leaf.parameters.success.name!=''){
-		tree.children[0].btype='success';     
-	     	buildTree(tree.children[0],leaf.parameters.success,leaf.name,level);//buildforSuccess
+		     //var m={btype:'success'};
+		     tree.children.append({btype:'success'});
+		     buildTree(tree.children[branch],leaf.parameters.success,leaf.name,level);//buildforSuccess
+		     branch+=1;
 	     }
 	     if(leaf.parameters.failure.name!=''){
-		     tree.children[1].btype='failure';
-		     buildTree(tree.children[1],leaf.parameters.failure,leaf.name,level);
+		     //var m=
+		     tree.children.append({btype:'failure'});
+		     buildTree(tree.children[branch],leaf.parameters.failure,leaf.name,level);
+		     branch+=1;
 	     }
-     }else{
+      }else{
 	     if(leaf.name==""){
 		     tree.name="Terminated"+"@level: "+level;
 	     }else{
