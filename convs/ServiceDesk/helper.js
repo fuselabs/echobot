@@ -154,7 +154,9 @@ var gjGetTicketStatusConv={
 
 //If you have an Update request
 var _mapping=[
-	{intentName: 'ServiceDesk.Update'}
+	{intentName: 'ServiceDesk.Update',
+	 dialogName: '/GetUpdate'
+	}
 ];
 
 var _funcs;
@@ -172,7 +174,7 @@ for(i=0;i<1;i++){
 	}
 	];	
 		
-	lib.dialog('/GetUpdate',_funcs).triggerAction({matches: _mapping[i].intentName})
+	lib.dialog(_mapping[i].dialogName,_funcs).triggerAction({matches: _mapping[i].intentName})
 ;
 }
 
