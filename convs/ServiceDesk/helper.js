@@ -153,8 +153,14 @@ var gjGetTicketStatusConv={
 };
 
 //If you have an Update request
-lib.dialog('/GetUpdate',[
-	function(session,args,next){
+var mapping=[
+	{intentName: 'ServiceDesk.Update'}
+];
+
+var _funcs;
+for(i=0;i<1;i++){
+	_funcs=[
+		function(session,args,next){
 		logThis("In ServiceDesk:/GetUpdate dialog");
 		//Save the global intent to the conversation data
 		session.conversationData.intent=args.intent;
@@ -164,9 +170,11 @@ lib.dialog('/GetUpdate',[
 		logThis("Ending ServiceDesk:/GetUpdate dialog");
 		session.endConversation();
 	}
-]).triggerAction({matches: 'ServiceDesk.Update'})
+	];	
+		
+	lib.dialog('/GetUpdate',_funcs).triggerAction({matches: 'ServiceDesk.Update'})
 ;
-
+}
 
 lib.dialog('/Greet',[
 function(session,args,next){
