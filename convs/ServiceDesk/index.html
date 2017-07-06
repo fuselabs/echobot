@@ -138,7 +138,7 @@ function update(source) {
 	  .style("stroke", function(d) { return "grey"; })
 	  .style("fill", function(d) { return d.level; })
 	   .append('svg:title')
-	  .text(function(d){return str(d.parameters);})
+	  .text(function(d){return JSON.stringify(d.parameters);})
 	;
 
   nodeEnter.append("text")
