@@ -142,8 +142,7 @@ function update(source) {
 	  .attr("x", function(d) { 
 		  return d.children || d._children ? 
 		  (d.value + 10) * -1 : d.value + 10 })
-	  .attr("dy", ".35em")
-	  .attr('y',function(d){return d.y-5;})
+	  .attr("dy", ".37em")
 	  .attr("text-anchor", function(d) { 
 		  return d.children || d._children ? "end" : "start"; })
 	  .text(function(d) { return d.name; })
