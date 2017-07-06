@@ -97,11 +97,13 @@ var level=0;
 	     }
 	     tree.parameters=leaf.parameters.check.parameters;
 	     level++;
-	     tree.children=[{btype:'success'},{btype:'failure'}];
+	     tree.children=[{},{}];
 	     if(leaf.parameters.success.name!=''){
+		tree.children[0].btype='success';     
 	     	buildTree(tree.children[0],leaf.parameters.success,leaf.name,level);//buildforSuccess
 	     }
 	     if(leaf.parameters.failure.name!=''){
+		     tree.children[1].btype='failure';
 		     buildTree(tree.children[1],leaf.parameters.failure,leaf.name,level);
 	     }
      }else{
