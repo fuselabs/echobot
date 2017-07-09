@@ -7,7 +7,7 @@ var logThis=logger.logThis;
 
 //Import dialogs
 var dialogs=require('./data.json');
-var _mapping=dialogs._mapping;
+var _mapping=dialogs._mapping();
 
 /*
 
