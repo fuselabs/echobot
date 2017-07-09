@@ -5,12 +5,6 @@ var lib=new builder.Library('ServiceDesk');
 const logger=require('../../lib/core/logger/helper.js');
 var logThis=logger.logThis;
 
-//Import dialogs
-var dialogs=require('./data.js');
-var _mapping=dialogs._mapping();
-
-/*
-
 const sGreeting="Hi this is crashcart! How can I help you? You can type out your problem (I cannot print a file) or ask for an update on an existing ticket (what's the status of IN2030?) and I will respond";
 
 var gjGetIncident={
@@ -152,9 +146,9 @@ var gjGetTicketStatusConv={
 		}
 	}
 };
-*/
 
-/*
+
+
 //If you have an Update request
 var _mapping=[
 	{intentName: 'ServiceDesk.Update',
@@ -174,7 +168,7 @@ function(session,args,next){
 	//startProactiveDialog(endUser);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
-*/
+
 
 /************************************************************************************************************************************
 
@@ -199,8 +193,8 @@ function makeWaterFall(dialogName,entryPoint){
 }
 
 for(i=0;i<_mapping.maps.length;i++){
-	_funcs=makeWaterFall(lib.name+":"+_mapping.maps[i].dialogName,_mapping.maps[i].entryPoint);
-	lib.dialog(_mapping.maps[i].dialogName,_funcs).triggerAction({matches: _mapping.maps[i].intentName});
+	_funcs=makeWaterFall(lib.name+":"+_mapping[i].dialogName,_mapping[i].entryPoint);
+	lib.dialog(_mapping[i].dialogName,_funcs).triggerAction({matches: _mapping[i].intentName});
 }
 
 module.exports.createLibrary = function () {
