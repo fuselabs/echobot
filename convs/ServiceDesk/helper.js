@@ -6,7 +6,7 @@ const logger=require('../../lib/core/logger/helper.js');
 var logThis=logger.logThis;
 
 //Import dialogs
-var dialogs=require('./data.json');
+var dialogs=require('./data.js');
 var _mapping=dialogs._mapping();
 
 /*
