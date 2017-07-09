@@ -192,7 +192,7 @@ function makeWaterFall(dialogName,entryPoint){
 		];
 }
 
-for(i=0;i<_mapping.maps.length;i++){
+for(i=0;i<_mapping.length;i++){
 	_funcs=makeWaterFall(lib.name+":"+_mapping[i].dialogName,_mapping[i].entryPoint);
 	lib.dialog(_mapping[i].dialogName,_funcs).triggerAction({matches: _mapping[i].intentName});
 }
