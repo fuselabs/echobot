@@ -198,9 +198,9 @@ function makeWaterFall(dialogName,entryPoint){
 		];
 }
 
-for(i=0;i<_mapping.length;i++){
-	_funcs=makeWaterFall(lib.name+":"+_mapping[i].dialogName,_mapping[i].entryPoint);
-	lib.dialog(_mapping[i].dialogName,_funcs).triggerAction({matches: _mapping[i].intentName});
+for(i=0;i<_mapping.maps.length;i++){
+	_funcs=makeWaterFall(lib.name+":"+_mapping.maps[i].dialogName,_mapping.maps[i].entryPoint);
+	lib.dialog(_mapping.maps[i].dialogName,_funcs).triggerAction({matches: _mapping.maps[i].intentName});
 }
 
 module.exports.createLibrary = function () {
