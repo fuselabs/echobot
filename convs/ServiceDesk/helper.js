@@ -1,17 +1,18 @@
 var builder=require('botbuilder');
 var lib=new builder.Library('ServiceDesk');
+
+//Import logger
 const logger=require('../../lib/core/logger/helper.js');
 var logThis=logger.logThis;
 
+//Import dialogs
+var dialogs=require('./data.json');
+var _mapping=dialogs._mapping;
 
 /*
-Global definitions
-*/
 
 const sGreeting="Hi this is crashcart! How can I help you? You can type out your problem (I cannot print a file) or ask for an update on an existing ticket (what's the status of IN2030?) and I will respond";
-/*
-Dialog definitions
-*/
+
 var gjGetIncident={
 	name:"MSBotFramework:/CheckPrereqs",
 	parameters:{
@@ -151,7 +152,9 @@ var gjGetTicketStatusConv={
 		}
 	}
 };
+*/
 
+/*
 //If you have an Update request
 var _mapping=[
 	{intentName: 'ServiceDesk.Update',
@@ -159,6 +162,7 @@ var _mapping=[
 	 entryPoint:gjGetTicketStatusConv
 	}
 ];
+
 
 
 lib.dialog('/Greet',[
@@ -170,6 +174,7 @@ function(session,args,next){
 	//startProactiveDialog(endUser);
 }
 ]).triggerAction({matches:'ServiceDesk.Greet'});
+*/
 
 /************************************************************************************************************************************
 
