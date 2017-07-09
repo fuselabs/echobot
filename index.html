@@ -1,8 +1,159 @@
-<html>
-<head>
-    <title>EchoBot</title>
-</head>
-<body>
-    Hello world! This is the EchoBot V3 home page :)
-</body>	
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <title>View example</title>
+
+    <style>
+	.node circle {
+	  fill: #fff;
+	  stroke: steelblue;
+	  stroke-width: 3px;
+	}
+	.node text { font: 12px sans-serif; }
+	.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 2px;
+	}
+	
+    </style>
+
+  </head>
+
+  <body>
+
+<!-- load the d3.js library -->	
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://d3js.org/d3-hierarchy.v1.min.js"></script>
+<script src='./convs/servicedesk/data.js'></script>	
+<script>
+var gTree={btype:'check'};
+var level=0;
+   function buildTree(tree,leaf,parent,level){	   
+     if(tree.btype=='success'){
+             tree.level="green";
+     }else if(tree.btype=='failure'){
+             tree.level="red";
+     }else{
+	    tree.level="steelblue";
+     }
+     tree.parent=parent;
+     tree.value=20;
+     if(leaf.name=="MSBotFramework:/CheckPrereqs"){
+	     if(leaf.parameters.check.name==''){
+		     tree.name="Terminated"+"@level: "+level;
+	     }else{
+		     var names=leaf.parameters.check.name.split('/');
+	             tree.name=names[1]+"@level: "+level;
+	     }
+	     tree.parameters=leaf.parameters.check.parameters;
+	     level++;
+	     //tree.children=[{},{}];
+	     tree.children=[];
+	     var branch=0;
+	     if(leaf.parameters.success.name!=''){
+		     //var m={btype:'success'};
+		     tree.children.push({btype:'success'});
+		     buildTree(tree.children[branch],leaf.parameters.success,leaf.name,level);//buildforSuccess
+		     branch+=1;
+	     }
+	     if(leaf.parameters.failure.name!=''){
+		     //var m=
+		     tree.children.push({btype:'failure'});
+		     buildTree(tree.children[branch],leaf.parameters.failure,leaf.name,level);
+		     branch+=1;
+	     }
+      }else{
+	     if(leaf.name==""){
+		     tree.name="Terminated"+"@level: "+level;
+	     }else{
+		     var names=leaf.name.split("/");
+                     tree.name=names[1]+"@level: "+level;
+	     }
+       
+       tree.parent=parent;
+       tree.value=15;
+       tree.type="steelblue";
+       //tree.level="grey";
+       tree.parameters=leaf.parameters;
+     }
+	   if(level==0){
+		   tree.name=leaf.name;
+	   }
+    }
+buildTree(gTree,gjGetTicketStatusConv,"null",level);
+  
+// ************** Generate the tree diagram	 *****************
+var margin = {top: 20, right: 20, bottom: 20, left: 250},
+	width = 2000 - margin.right - margin.left,
+	height = 768 - margin.top - margin.bottom;
+	
+var i = 0;
+var tree = d3.layout.tree()
+	.size([height, width]);
+var diagonal = d3.svg.diagonal()
+	.projection(function(d) { return [d.y, d.x]; });
+var svg = d3.select("body").append("svg")
+	.attr("width", width + margin.right + margin.left)
+	.attr("height", height + margin.top + margin.bottom)
+  .append("g")
+	.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+//root = treeData[0];
+  
+update(gTree);
+function update(source) {
+  // Compute the new tree layout.
+  var nodes = tree.nodes(source).reverse(),
+	  links = tree.links(nodes);
+  // Normalize for fixed-depth.
+  nodes.forEach(function(d) { d.y = d.depth * 180; });
+  // Declare the nodes…
+  var node = svg.selectAll("g.node")
+	  .data(nodes, function(d) { return d.id || (d.id = ++i); });
+  // Enter the nodes.
+  var nodeEnter = node.enter().append("g")
+	  .attr("class", "node")
+	  .attr("transform", function(d) { 
+		  return "translate(" + d.y + "," + d.x + ")"; });
+  nodeEnter.append("circle")
+	  .attr("r", function(d) { return 5; })
+	  .style("stroke", function(d) { return "grey"; })
+	  .style("fill", function(d) { return d.level; })
+	   .append('svg:title')
+	  .text(function(d){return JSON.stringify(d.parameters);})
+	;
+  nodeEnter.append("text")
+	  .attr("x", function(d) { 
+		  return d.children || d._children ? 
+		  (d.value + 2) * -1 : d.value + 2 })
+	  .attr("dy", function(d){
+	                console.log(d.btype);
+	                if(d.btype=='success'){
+				return "-0.15em";
+			}else{
+				return "0.75em";
+			}
+  		      }
+	  )
+	  .attr("text-anchor", function(d) { 
+		  return d.children || d._children ? "end" : "start"; })
+	  .text(function(d) { return d.name; })
+	  .style("fill-opacity", 1)
+	  
+	;
+  // Declare the links…
+  var link = svg.selectAll("path.link")
+	  .data(links, function(d) { return d.target.id; });
+  // Enter the links.
+  link.enter().insert("path", "g")
+	  .attr("class", "link")
+  	  .style("stroke", function(d) { return d.target.level; })
+	  .attr("d", diagonal);
+}
+</script>
+	  <div id='viewbox'></div>	
+  </body>
 </html>
+
