@@ -137,3 +137,15 @@ var gjGetTicketStatusConv={
 		}
 	}
 };
+
+var _mapping=[
+	name:'ServiceDesk',
+	{intentName: 'ServiceDesk.Update',
+	 dialogName: '/GetUpdate',
+	 entryPoint:gjGetTicketStatusConv
+	}
+];
+
+module.exports._mapping=function(){
+	return _mapping;
+}
