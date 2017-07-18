@@ -132,6 +132,7 @@ var gjGetTicketStatusConv={
 		check:{
 			name:"MSBotFramework:/GetEntity",
 			parameters:{
+				entityName: 'ServiceDesk.TicketType',
 				persistResponse:true,
 				persistVariable:'Ticket'
 			}
