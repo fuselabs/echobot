@@ -24,7 +24,7 @@ var server = restify.createServer();
 server.post('/api/messages', connector.listen());
 
 // Serve a static web page
-server.get(/.*/, restify.serveStatic({
+server.get(/.*/, restify.plugins.serveStatic({
 	'directory': '.',
 	'default': 'index.html'
 }));
